@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // --- INITIALIZE CENTRALIZED CLIENT STORAGE CONFIGURATION ---
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api/v1', // Your backend API Gateway Root
+  baseURL: 'https://analytics-circle.onrender.com/api/v1', // Your backend API Gateway Root
   withCredentials: true, // Crucial: Commands the browser to append and track HttpOnly refresh cookies
 });
 
