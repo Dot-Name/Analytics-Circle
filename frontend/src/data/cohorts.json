@@ -1,0 +1,47 @@
+[
+  {
+    "badge": "Enrolling Now",
+    "seats": "Only 8 seats left",
+    "slug": "datascience",
+    "title": "Data Science Master's Program",
+    "desc": "Comprehensive program covering Python, Machine Learning, Deep Learning, and Data Visualization.",
+    "starts": "Upcoming week",
+    "batch": "Weekday & Weekend Batch",
+    "mode": "Online Live + Classroom",
+    "mentor": "Keshav Bansal",
+    "enrollLink": "https://www.analyticscircle.com/datascience",
+    "syllabusLink": "https://www.analyticscircle.com/datascience",
+    "accent": "#4F46E5",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop"
+  },
+  {
+    "badge": "Enrolling Now",
+    "seats": "Only 5 seats left",
+    "title": "Generative AI & LLM Mastery",
+        "slug": "genai",
+    "desc": "Master generative AI, large language models, prompt engineering, and AI applications.",
+    "starts": "Upcoming week",
+    "batch": "Weekend Batch (Sat-Sun)",
+    "mode": "Online Live",
+    "mentor": "Keshav Bansal",
+    "enrollLink": "https://www.analyticscircle.com/genai-course",
+    "syllabusLink": "https://www.analyticscircle.com/genai-course",
+    "accent": "#F97316",
+    "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop"
+  },
+  {
+    "badge": "Enrolling Now",
+    "seats": "Only 12 seats left",
+    "title": "Data Analytics Certification",
+    "desc": "Master data analysis with Excel, SQL, Power BI, and Tableau for business insights.",
+    "starts": "Upcoming week",
+     "slug": "dataanalysis",
+    "batch": "Weekday Batch (Mon-Fri)",
+    "mode": "Classroom/Hybrid (Online + Offline)",
+    "mentor": "Amit Kumar",
+    "enrollLink": "https://www.analyticscircle.com/dataanalytics",
+    "syllabusLink": "https://www.analyticscircle.com/dataanalytics",
+    "accent": "#16A34A",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Priya Sharma",
+    "role": "Data Analyst @ Google",
+    "avatar": "https://i.pravatar.cc/150?u=priya",
+    "stars": 5,
+    "text": "Analytics Circle completely changed my career trajectory. The mentorship was unlike anything else — my mentor had worked at Google and gave me insider prep.",
+    "badge": "6 LPA → 24 LPA",
+    "videoId": "dQw4w9WgXcQ"
+  },
+  {
+    "name": "Rahul Verma",
+    "role": "AI Engineer @ Microsoft",
+    "avatar": "https://i.pravatar.cc/150?u=rahul",
+    "stars": 5,
+    "text": "The GenAI course was incredibly hands-on. We built actual RAG pipelines and deployed LLM apps. Got placed within 3 weeks of completing the program.",
+    "badge": "Placed in 3 Weeks",
+    "videoId": "dQw4w9WgXcQ"
+  },
+  {
+    "name": "Anjali Singh",
+    "role": "Business Analyst @ Deloitte",
+    "avatar": "https://i.pravatar.cc/150?u=anjali",
+    "stars": 5,
+    "text": "I had zero coding background. The BA program eased me in perfectly. The instructors were patient and the community support was amazing throughout.",
+    "badge": "0 → Analyst",
+    "videoId": "dQw4w9WgXcQ"
+  }
+]

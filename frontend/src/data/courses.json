@@ -1,0 +1,1011 @@
+{
+  "courses": [
+    {
+      "slug": "dataanalysis",
+      "title": "Master Data Analytics with GenAI from Zero to Hero",
+      "description": "Transform your career with our comprehensive data analytics program. Learn in-demand skills from industry experts and join the data revolution.",
+      "heroHighlight1": "Data Analytics",
+      "heroHighlight2": "with GenAI",
+      "careerRole": "Data-Driven Professional",
+      "durationMonths": 6,
+      "customDesc": "The demand for data analytics professionals is soaring, with companies actively seeking skilled analysts.",
+      "stats": [
+        {
+          "value": "12K+",
+          "label": "Joined this month"
+        },
+        {
+          "value": "5/5",
+          "label": "Rating"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "calendar",
+          "title": "6 Months Program",
+          "desc": "Weekend & weekday batches available"
+        },
+        {
+          "icon": "code",
+          "title": "Hands-on Projects",
+          "desc": "Build a portfolio with 15+ real-world projects"
+        },
+        {
+          "icon": "certificate",
+          "title": "Industry Certification",
+          "desc": "Recognized certificates upon completion"
+        },
+        {
+          "icon": "user-tie",
+          "title": "Career Support",
+          "desc": "Resume building & interview preparation"
+        }
+      ],
+      "features": [
+        {
+          "icon": "chalkboard-teacher",
+          "title": "Expert Instructors",
+          "desc": "Learn from seasoned professionals with years of experience in leading tech companies."
+        },
+        {
+          "icon": "laptop-code",
+          "title": "Hands-on Learning",
+          "desc": "Apply your knowledge through practical exercises, case studies, and real-world projects."
+        },
+        {
+          "icon": "certificate",
+          "title": "Industry Certification",
+          "desc": "Earn recognized certifications that validate your skills."
+        },
+        {
+          "icon": "users",
+          "title": "Community Support",
+          "desc": "Join a vibrant community of learners and professionals."
+        },
+        {
+          "icon": "headset",
+          "title": "24/7 Support",
+          "desc": "Get assistance whenever you need it."
+        },
+        {
+          "icon": "briefcase",
+          "title": "Career Services",
+          "desc": "Resume reviews, interview prep, job connections."
+        }
+      ],
+      "tools": [
+        {
+          "name": "Excel",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg"
+        },
+        {
+          "name": "SQL",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png"
+        },
+        {
+          "name": "Power BI",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"
+        },
+        {
+          "name": "Tableau",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Tableau_Logo.png"
+        },
+        {
+          "name": "Python",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+        },
+        {
+          "name": "R",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/1/1b/R_logo.svg"
+        }
+      ],
+      "curriculum": [
+        {
+          "title": "Module 1: Advanced Excel for Data Analysis",
+          "duration": "3 Weeks",
+          "icon": "table",
+          "description": "Master the essential Excel skills that form the foundation of data analysis.",
+          "topics": [
+            "Getting started with Excel interface & shortcuts",
+            "Basic to advance Formulas (VLOOKUP, XLOOKUP, INDEX-MATCH)",
+            "Data Formatting & conditional formatting",
+            "Pivot tables & charting",
+            "Data analysis using excel (What-If Analysis, Solver)",
+            "Dashboard creation & Interactive Reports"
+          ],
+          "projects": [
+            "Automated Sales Performance Dashboard",
+            "Financial Budgeting and Scenario Analysis Model"
+          ]
+        },
+        {
+          "title": "Module 2: SQL for Data Analytics",
+          "duration": "4 Weeks",
+          "icon": "database",
+          "description": "Learn how to extract, manipulate, and analyze data from relational databases.",
+          "topics": [
+            "Relational Database Concepts and Setup",
+            "Basic SQL Queries (SELECT, WHERE, GROUP BY, ORDER BY)",
+            "Joins, Unions, and Set Operations",
+            "Subqueries and Common Table Expressions (CTEs)",
+            "Window Functions for Advanced Analytics",
+            "Data Cleaning and Database optimization for analytics"
+          ],
+          "projects": [
+            "E-commerce Customer Behaviour Analysis",
+            "Multi-table Database Querying for HR Analytics"
+          ]
+        },
+        {
+          "title": "Module 3: Power BI & Data Visualization",
+          "duration": "4 Weeks",
+          "icon": "pie-chart",
+          "description": "Transform raw data into interactive, visually appealing dashboards using Power BI.",
+          "topics": [
+            "Power BI Desktop Fundamentals & Interface",
+            "Power Query for Data Transformation & Cleaning",
+            "Data Modeling and Relationships (Star Schema)",
+            "DAX (Data Analysis Expressions) for Calculated Measures",
+            "Creating Interactive Visualizations and Reports",
+            "Publishing and Sharing via Power BI Service"
+          ],
+          "projects": [
+            "End-to-End Executive Sales Dashboard",
+            "HR Attrition & Employee Performance Tracker"
+          ]
+        },
+        {
+          "title": "Module 4: Python for Data Analysis",
+          "duration": "5 Weeks",
+          "icon": "code",
+          "description": "Learn Python programming and its powerful libraries for data manipulation and statistical analysis.",
+          "topics": [
+            "Python Programming Fundamentals (Variables, Loops, Functions)",
+            "Data Manipulation with Pandas (DataFrames, Merging, Grouping)",
+            "Numerical Computing with NumPy",
+            "Data Visualization with Matplotlib and Seaborn",
+            "Exploratory Data Analysis (EDA) Techniques",
+            "Working with APIs and Web Scraping Basics"
+          ],
+          "projects": [
+            "Exploratory Data Analysis of Netflix Dataset",
+            "Automated Stock Market Data Extraction and Analysis"
+          ]
+        },
+        {
+          "title": "Module 5: Advanced Analytics & Machine Learning Basics",
+          "duration": "4 Weeks",
+          "icon": "brain",
+          "description": "Understand the basics of predictive modeling and machine learning algorithms for business.",
+          "topics": [
+            "Introduction to Machine Learning Concepts",
+            "Supervised vs. Unsupervised Learning",
+            "Linear and Logistic Regression models",
+            "Decision Trees and Random Forests",
+            "K-Means Clustering for Customer Segmentation",
+            "Model Evaluation Metrics (Accuracy, Precision, Recall)"
+          ],
+          "projects": [
+            "Customer Churn Prediction Model",
+            "Customer Segmentation based on Purchasing Behavior"
+          ]
+        },
+        {
+          "title": "Module 6: Capstone Project & Career Preparation",
+          "duration": "4 Weeks",
+          "icon": "briefcase",
+          "description": "Apply all your skills to a final comprehensive project and prepare for the job market.",
+          "topics": [
+            "End-to-End Capstone Project Execution",
+            "Resume and LinkedIn Profile Optimization",
+            "Building a Compelling GitHub/Kaggle Portfolio",
+            "Mock Technical Interviews (SQL, Python, Excel)",
+            "Behavioral Interview Preparation",
+            "Job Search Strategies and Salary Negotiation"
+          ],
+          "projects": [
+            "Comprehensive Industry-Level Capstone Project",
+            "Personal Data Analytics Portfolio Website"
+          ]
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Tannu Verma",
+          "role": "Data Analyst at Pramerica",
+          "text": "This program completely changed my career trajectory. I was a fresher with no technical background...",
+          "avatar": "https://img.flexifunnels.com/images/30402/Tannu2_yznda_662.jpeg",
+          "rating": 5
+        },
+        {
+          "name": "Rahul Mehta",
+          "role": "Business Intelligence Analyst at Microsoft",
+          "text": "The curriculum is incredibly well‑designed and industry‑relevant. The Power BI and SQL modules were instrumental.",
+          "avatar": "https://randomuser.me/api/portraits/men/45.jpg",
+          "rating": 5
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Do I need prior experience in data analytics or programming?",
+          "answer": "No prior experience is required. Our program is designed for beginners and starts from the absolute fundamentals of Excel before moving on to SQL, Power BI, and Python."
+        },
+        {
+          "question": "How much time commitment is required per week?",
+          "answer": "We recommend dedicating approximately 10-15 hours per week. This includes attending live sessions (or watching recordings) and completing hands-on assignments and projects."
+        },
+        {
+          "question": "Will I get help if I'm stuck on a project or code?",
+          "answer": "Absolutely. You'll have 24/7 access to our dedicated Discord support community, weekly live Q&A doubt-clearing sessions with teaching assistants, and 1:1 mentorship when needed."
+        },
+        {
+          "question": "Do you provide placement guarantee or career support?",
+          "answer": "We provide a complete Career Success Program. This includes comprehensive placement assistance, 1-on-1 resume reviews, LinkedIn profile optimization, mock interviews, and direct referrals to our hiring partners."
+        },
+        {
+          "question": "Is Python mandatory for Data Analytics, or is Excel/SQL enough?",
+          "answer": "While many entry-level jobs only require Excel and SQL, learning Python makes you a highly competitive candidate for premium roles and higher salary packages. Our curriculum covers Python extensively to future-proof your career."
+        },
+        {
+          "question": "Can I switch batches if my schedule changes?",
+          "answer": "Yes! We offer highly flexible learning options. If your work or college schedule changes, you can request to be moved from a weekday batch to a weekend batch (and vice versa) subject to seat availability."
+        }
+      ],
+      "fee": {
+        "original": 39999,
+        "discounted": 29999,
+        "emi": "₹4,999/month",
+        "savings": 20000
+      },
+      "learningOptionsPrice": {
+        "classroom": "₹39,999",
+        "live-online": "₹29,999",
+        "self-paced": "₹14,999"
+      },
+      "batchStartsInDays": 7,
+      "seatsLeft": 12
+    },
+    {
+      "slug": "genai",
+      "title": "Master Generative AI & Large Language Models from Zero to Hero",
+      "description": "Master the cutting‑edge field of Generative AI. Learn to build Production-Ready LLM applications, custom AI Agents, and advanced RAG architectures from scratch.",
+      "heroHighlight1": "Generative AI",
+      "heroHighlight2": "& LLMs",
+      "careerRole": "Elite AI Engineer",
+      "durationMonths": 4,
+      "customDesc": "The demand for Generative AI professionals is soaring, with companies actively seeking skilled engineers.",
+      "stats": [
+        {
+          "value": "8K+",
+          "label": "AI Enthusiasts Joined"
+        },
+        {
+          "value": "4.9/5",
+          "label": "Top Rated Course"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "calendar",
+          "title": "4 Months Program",
+          "desc": "Intensive weekend live masterclasses"
+        },
+        {
+          "icon": "code",
+          "title": "Build 10+ LLM Apps",
+          "desc": "Create RAG chatbots, Autonomous Agents & Art generators"
+        },
+        {
+          "icon": "certificate",
+          "title": "Next-Gen Certification",
+          "desc": "Earn credentials recognized by top AI labs"
+        },
+        {
+          "icon": "user-tie",
+          "title": "Premium Mentorship",
+          "desc": "1:1 project reviews with Senior AI Scientists"
+        }
+      ],
+      "features": [
+        {
+          "icon": "robot",
+          "title": "State‑of‑the‑Art Models",
+          "desc": "Get complete production hands‑on training with GPT-4o, Claude 3.5, Llama 3, and DeepSeek."
+        },
+        {
+          "icon": "laptop-code",
+          "title": "Frameworks Masterclass",
+          "desc": "Deep dive into production orchestration frameworks like LangChain, LangGraph, and LlamaIndex."
+        },
+        {
+          "icon": "database",
+          "title": "Vector Databases",
+          "desc": "Learn semantic search implementation using Pinecone, ChromaDB, and Milvus vector stores."
+        },
+        {
+          "icon": "brain",
+          "title": "Fine-Tuning & LoRA",
+          "desc": "Understand how to adapt open-source LLMs on your custom private company data efficiently."
+        },
+        {
+          "icon": "headset",
+          "title": "Elite AI Community",
+          "desc": "24/7 dedicated Discord channel access with expert teaching assistants to debug your code."
+        },
+        {
+          "icon": "briefcase",
+          "title": "AI Job Readiness",
+          "desc": "Get custom resume building for AI Engineer roles, portfolio prep, and direct partner referrals."
+        }
+      ],
+      "tools": [
+        {
+          "name": "Python",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+        },
+        {
+          "name": "LangChain",
+          "logo": "https://python.langchain.com/img/brand/wordmark.png"
+        },
+        {
+          "name": "OpenAI",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg"
+        },
+        {
+          "name": "Hugging Face",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Hugging_Face_logo.svg"
+        }
+      ],
+      "curriculum": [
+        {
+          "title": "Advanced Excel for Data Analysis",
+          "icon": "excel",
+          "description": "Master the essential Excel skills that form the foundation of data analysis, from advanced functions to data modeling.",
+          "topics": [
+            "Advanced formulas and functions (VLOOKUP, INDEX-MATCH, SUMIFS)",
+            "Data cleaning and preparation techniques",
+            "PivotTables and PivotCharts for dynamic reporting",
+            "Data visualization best practices in Excel",
+            "Power Query for data transformation",
+            "Introduction to Excel macros and VBA"
+          ],
+          "projects": [
+            "Building an automated sales dashboard with dynamic filters",
+            "Creating a financial model with scenario analysis",
+            "Developing a data cleaning and transformation workflow"
+          ]
+        },
+        {
+          "title": "SQL for Data Analysis",
+          "icon": "sql",
+          "description": "Learn how to extract, manipulate, and analyze data from databases using SQL, the industry standard for data querying.",
+          "topics": [
+            "SQL fundamentals and database concepts",
+            "Writing complex queries with joins and subqueries",
+            "Aggregating and summarizing data",
+            "Window functions for advanced analysis",
+            "Database design principles",
+            "Performance optimization techniques"
+          ],
+          "projects": [
+            "Analyzing e-commerce customer behavior patterns",
+            "Creating a sales performance analysis dashboard",
+            "Building a database schema for a business application"
+          ]
+        },
+        {
+          "title": "Power BI for Business Intelligence",
+          "icon": "powerbi",
+          "description": "Develop skills in Microsoft’s leading business intelligence tool to create powerful interactive dashboards and reports.",
+          "topics": [
+            "Power BI Desktop fundamentals",
+            "Data modeling and relationships",
+            "DAX formulas for calculations",
+            "Creating interactive visualizations and dashboards",
+            "Power BI Service and sharing capabilities",
+            "Advanced analytics with Power BI"
+          ],
+          "projects": [
+            "Building an executive-level business performance dashboard",
+            "Creating a sales and marketing analysis solution",
+            "Developing a financial reporting package with drill-through capabilities"
+          ]
+        },
+        {
+          "title": "Tableau for Data Visualization",
+          "icon": "tableau",
+          "description": "Master Tableau to create stunning visualizations that communicate insights effectively and drive business decisions.",
+          "topics": [
+            "Tableau Desktop fundamentals",
+            "Creating effective visualizations",
+            "Dashboard design best practices",
+            "Advanced calculations and parameters",
+            "Interactive dashboards with actions",
+            "Tableau Server essentials"
+          ],
+          "projects": [
+            "Creating a comprehensive sales analysis dashboard",
+            "Building a geographic data visualization project",
+            "Developing an interactive customer segmentation analysis"
+          ]
+        },
+        {
+          "title": "Python for Data Analysis",
+          "icon": "python",
+          "description": "Learn Python programming with a focus on data analysis libraries like Pandas, NumPy, and Matplotlib for advanced analytics.",
+          "topics": [
+            "Python programming fundamentals",
+            "Data manipulation with Pandas",
+            "Numerical computing with NumPy",
+            "Data visualization with Matplotlib and Seaborn",
+            "Statistical analysis and hypothesis testing",
+            "Introduction to machine learning with Scikit-learn"
+          ],
+          "projects": [
+            "Exploratory data analysis of a real-world dataset",
+            "Building a predictive model for business outcomes",
+            "Creating an automated data pipeline for reporting"
+          ]
+        },
+        {
+          "title": "Business Communication & Storytelling",
+          "icon": "comm",
+          "description": "Develop crucial soft skills to effectively communicate insights, tell compelling data stories, and influence business decisions.",
+          "topics": [
+            "Principles of effective data storytelling",
+            "Presentation skills for data professionals",
+            "Designing effective visual communications",
+            "Tailoring messages to different audiences",
+            "Executive summary and report writing",
+            "Influencing decisions with data"
+          ],
+          "projects": [
+            "Creating and delivering an executive data presentation",
+            "Developing a comprehensive data analysis report",
+            "Building an interactive data story for different stakeholders"
+          ]
+        },
+        {
+          "title": "Career Development & Interview Preparation",
+          "icon": "career",
+          "description": "Prepare for a successful career transition with comprehensive job readiness training and interview preparation.",
+          "topics": [
+            "Resume and LinkedIn profile optimization",
+            "Building a compelling portfolio",
+            "Job search strategies for data roles",
+            "Technical interview preparation",
+            "Behavioral interview preparation",
+            "Salary negotiation techniques"
+          ],
+          "projects": [
+            "One-on-one resume and portfolio review sessions",
+            "Mock technical and behavioral interviews",
+            "Networking sessions with industry professionals"
+          ]
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Aman Srivastava",
+          "role": "AI Engineer at Tech Mahindra",
+          "text": "This GenAI program is pure gold! The Multi-Agent development module helped me transition directly into an core AI Engineering role inside my company.",
+          "avatar": "https://randomuser.me/api/portraits/men/32.jpg",
+          "rating": 5
+        },
+        {
+          "name": "Priya Sharma",
+          "role": "Product Manager at Adobe",
+          "text": "The depth of this curriculum is unmatched. Building real-world RAG apps gave me the confidence to handle high-level AI product lifecycles easily.",
+          "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+          "rating": 5
+        },
+        {
+          "name": "Neeraj Chaudhary",
+          "role": "Power BI Developer at Dell",
+          "text": "I was skeptical about these courses, but this program exceeded all my expectations. The instructors are knowledgeable and supportive, and the projects gave me real-world experience that I could showcase in interviews. My salary increased by 70% after completing the course!",
+          "avatar": "https://randomuser.me/api/portraits/women/44.jpg",
+          "rating": 5
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What are the prerequisites for this GenAI course?",
+          "answer": "Basic understanding of Python programming and standard variables/loops is recommended. No prior Machine Learning or Deep Learning background is required, as we cover the necessary fundamentals from scratch."
+        },
+        {
+          "question": "Do I need a high-end PC or GPU for this course?",
+          "answer": "Not at all! You don't need expensive hardware. All heavy computations and model training will be done using cloud-based platforms (like Google Colab, Hugging Face spaces) and API integrations. A standard laptop with a good internet connection is completely fine."
+        },
+        {
+          "question": "Will I have to pay extra for OpenAI/Claude API credits?",
+          "answer": "No. Standard access and lab environments with token credits are covered inside the program to ensure seamless learning. We will also teach you how to leverage open-source models (like Llama 3) entirely for free."
+        },
+        {
+          "question": "What kind of projects will we build in this course?",
+          "answer": "You will build 10+ production-ready applications, including multi-agent AI systems, custom RAG (Retrieval-Augmented Generation) chatbots trained on private PDF/company data, and automated content generation workflows using LangChain and vector databases."
+        },
+        {
+          "question": "Are there job opportunities for GenAI freshers?",
+          "answer": "Absolutely. The demand for AI Engineers, Prompt Engineers, and LLM Developers is at an all-time high. Our program includes specialized AI resume building, portfolio creation, and direct mock interviews with Senior AI Scientists to make you job-ready."
+        },
+        {
+          "question": "What happens if I miss a live masterclass?",
+          "answer": "Every live session is recorded and uploaded to your student portal within 24 hours. You will have lifetime access to all session recordings, code repositories, and study materials."
+        }
+      ],
+      "fee": {
+        "original": 49999,
+        "discounted": 39999,
+        "emi": "₹5,499/month",
+        "savings": 10000
+      },
+      "learningOptionsPrice": {
+        "classroom": "₹49,999",
+        "live-online": "₹39,999",
+        "self-paced": "₹19,999"
+      },
+      "batchStartsInDays": 14,
+      "seatsLeft": 8
+    },
+    {
+      "slug": "datascience",
+      "title": "Master Data Science & Machine Learning from Zero to Hero",
+      "description": "Supercharge your career with our advanced Data Science program. Master Python, Predictive Modeling, Machine Learning algorithms, and Deep Learning from scratch with industry experts.",
+      "heroHighlight1": "Data Science",
+      "heroHighlight2": "& ML",
+      "careerRole": "Data Scientist",
+      "durationMonths": 6,
+      "customDesc": "Data Science is dominating the tech space. Master the art of extracting insights from raw data and deploying machine learning models.",
+      "stats": [
+        {
+          "value": "10K+",
+          "label": "Data Scientists Joined"
+        },
+        {
+          "value": "4.9/5",
+          "label": "Top Rated Program"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "calendar",
+          "title": "6 Months Program",
+          "desc": "Flexible weekend & weekday evening batches"
+        },
+        {
+          "icon": "code",
+          "title": "20+ Live Projects",
+          "desc": "Build a robust portfolio with real industry datasets"
+        },
+        {
+          "icon": "certificate",
+          "title": "Premium Certification",
+          "desc": "Industry-recognized credentials upon completion"
+        },
+        {
+          "icon": "user-tie",
+          "title": "1:1 Mentorship",
+          "desc": "Personalized career guidance and resume review"
+        }
+      ],
+      "features": [
+        {
+          "icon": "chalkboard-teacher",
+          "title": "Elite Faculty",
+          "desc": "Learn from expert Data Scientists with years of experience in Fortune 500 companies."
+        },
+        {
+          "icon": "laptop-code",
+          "title": "Rigorous Practice",
+          "desc": "Apply theoretical concepts directly on real-world industrial business problems."
+        },
+        {
+          "icon": "certificate",
+          "title": "Validated Skills",
+          "desc": "Earn a globally respected certificate that helps you stand out to recruiters."
+        },
+        {
+          "icon": "users",
+          "title": "Global Community",
+          "desc": "Network and collaborate with thousands of fellow data tech enthusiasts."
+        },
+        {
+          "icon": "headset",
+          "title": "Instant Support",
+          "desc": "Get your coding and conceptual doubts cleared 24/7 on our private discord channel."
+        },
+        {
+          "icon": "briefcase",
+          "title": "Placement Cell",
+          "desc": "Mock interviews, resume optimization, and direct job hiring referrals."
+        }
+      ],
+      "tools": [
+        {
+          "name": "Python",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"
+        },
+        {
+          "name": "SQL",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/8/87/Sql_data_base_with_logo.png"
+        },
+        {
+          "name": "Tableau",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Tableau_Logo.png"
+        },
+        {
+          "name": "Scikit-Learn",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/0/05/Scikit_learn_logo_small.svg"
+        },
+        {
+          "name": "TensorFlow",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg"
+        }
+      ],
+      "curriculum": [
+        {
+          "title": "Module 1: Python Programming & Advanced Libraries",
+          "duration": "4 Weeks",
+          "icon": "code",
+          "description": "Master data structures in Python and libraries like NumPy and Pandas for data manipulation.",
+          "topics": [
+            "Python core programming paradigms (OOPs, lambda functions)",
+            "Data analysis and wrangling with Pandas DataFrames",
+            "Vectorized computations using NumPy arrays",
+            "Data Visualization using Matplotlib and Seaborn",
+            "Data cleaning techniques & handling missing values"
+          ],
+          "projects": [
+            "Automated Exploratory Data Analysis (EDA) Tool",
+            "Real-world Housing Market Data Cleaning Pipeline"
+          ]
+        },
+        {
+          "title": "Module 2: Applied Statistics & Exploratory Data Analysis",
+          "duration": "4 Weeks",
+          "icon": "table",
+          "description": "Develop strong statistical concepts required to make data-driven decisions and find hidden patterns.",
+          "topics": [
+            "Descriptive and Inferential Statistics fundamentals",
+            "Probability distributions (Normal, Binomial, Poisson)",
+            "Hypothesis Testing (A/B Testing, Z-test, T-test, ANOVA)",
+            "Correlation and Regression analysis concepts",
+            "Feature Engineering and Data Pre-processing methods"
+          ],
+          "projects": [
+            "E-commerce Website A/B Testing Analysis",
+            "Healthcare Patient Demographics Insight Report"
+          ]
+        },
+        {
+          "title": "Module 3: Machine Learning Foundations (Supervised)",
+          "duration": "5 Weeks",
+          "icon": "brain",
+          "description": "Dive deep into core predictive modeling and supervised machine learning algorithms.",
+          "topics": [
+            "Linear Regression and Logistic Regression modeling",
+            "Decision Trees and Random Forest ensembles",
+            "Support Vector Machines (SVM) and Naive Bayes",
+            "Model evaluation metrics (ROC-AUC, Precision, Recall)",
+            "Hyperparameter tuning using GridSearchCV"
+          ],
+          "projects": [
+            "Banking Credit Risk Prediction System",
+            "Telecom Sector Customer Churn Forecasting Model"
+          ]
+        },
+        {
+          "title": "Module 4: Advanced Machine Learning & Clustering",
+          "duration": "4 Weeks",
+          "icon": "database",
+          "description": "Learn unsupervised learning algorithms and dimensionality reduction techniques.",
+          "topics": [
+            "K-Means and Hierarchical Clustering models",
+            "Principal Component Analysis (PCA) for dimensionality reduction",
+            "Recommendation Systems implementation paradigms",
+            "Time Series Forecasting models (ARIMA, SARIMA)",
+            "Anomaly Detection techniques for fraud prevention"
+          ],
+          "projects": [
+            "Retail Customer Segmentation Dashboard",
+            "Financial Credit Card Fraud Detection Pipeline"
+          ]
+        },
+        {
+          "title": "Module 5: Deep Learning & Computer Vision Basics",
+          "duration": "4 Weeks",
+          "icon": "laptop-code",
+          "description": "Get started with Artificial Neural Networks (ANN) and building smart intelligent computer vision apps.",
+          "topics": [
+            "Introduction to Deep Learning & Neural Network architectures",
+            "Building models using TensorFlow and Keras",
+            "Convolutional Neural Networks (CNN) for image processing",
+            "Model optimization and preventing overfitting (Dropout, Batch Normalization)",
+            "Transfer Learning using pre-trained weights"
+          ],
+          "projects": [
+            "Automated Image Classification Web App",
+            "Handwritten Digit Recognition System"
+          ]
+        },
+        {
+          "title": "Module 6: Capstone Project & Cloud Deployment",
+          "duration": "3 Weeks",
+          "icon": "briefcase",
+          "description": "Deploy your machine learning models to production and prepare for professional engineering roles.",
+          "topics": [
+            "Building interactive web dashboards using Streamlit",
+            "Model containerization using Docker tools",
+            "Deploying ML models as REST APIs to cloud (AWS/GCP)",
+            "Portfolio development and GitHub profiling optimization",
+            "Mock Technical rounds and Salary negotiation strategy"
+          ],
+          "projects": [
+            "Production-Grade End-to-End Predictor deployed on Cloud",
+            "Comprehensive Capstone Industry Presentation"
+          ]
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Vikram Malhotra",
+          "role": "Data Scientist at Fractal Analytics",
+          "text": "The Machine Learning modules gave me profound practical clarity. Building 20+ projects helped me clear technical rounds easily.",
+          "avatar": "https://randomuser.me/api/portraits/men/81.jpg",
+          "rating": 5
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Is advanced mathematics mandatory for this Data Science course?",
+          "answer": "No. While basic statistics and high-school linear algebra are helpful, we cover all mathematical foundations from scratch before jumping into coding algorithms."
+        },
+        {
+          "question": "Which tools will I master in this curriculum?",
+          "answer": "You will gain hands-on expertise in Python, SQL, Tableau, Scikit-Learn, TensorFlow, Git, and cloud deployment basics."
+        }
+      ],
+      "fee": {
+        "original": 44999,
+        "discounted": 34999,
+        "emi": "₹5,199/month",
+        "savings": 10000
+      },
+      "learningOptionsPrice": {
+        "classroom": "₹44,999",
+        "live-online": "₹34,999",
+        "self-paced": "₹16,999"
+      },
+      "batchStartsInDays": 10,
+      "seatsLeft": 15
+    },
+    {
+      "slug": "mernstack",
+      "title": "Full Stack Web Development with MERN Stack & Next.js",
+      "description": "Become a production-ready Full Stack Developer. Learn to build scalable web applications using MongoDB, Express.js, React, Node.js, and advanced system design from scratch.",
+      "heroHighlight1": "MERN Stack",
+      "heroHighlight2": "& Next.js",
+      "careerRole": "Full-Stack Developer",
+      "durationMonths": 6,
+      "customDesc": "Full-stack development is one of the highest-paying fields today. Companies are constantly looking for developers.",
+      "stats": [
+        {
+          "value": "15K+",
+          "label": "Developers Graduated"
+        },
+        {
+          "value": "5/5",
+          "label": "Top Performance Rating"
+        }
+      ],
+      "highlights": [
+        {
+          "icon": "calendar",
+          "title": "6 Months Track",
+          "desc": "Intensive weekend masterclasses and weekday syncs"
+        },
+        {
+          "icon": "code",
+          "title": "12+ Mega Apps",
+          "desc": "Develop real production-grade complex applications"
+        },
+        {
+          "icon": "certificate",
+          "title": "Developer Certificate",
+          "desc": "Credentials verified and recognized by top tech startups"
+        },
+        {
+          "icon": "user-tie",
+          "title": "Career Prep",
+          "desc": "Direct portfolio building, resume evaluation and referrals"
+        }
+      ],
+      "features": [
+        {
+          "icon": "chalkboard-teacher",
+          "title": "Expert Developers",
+          "desc": "Learn from Senior Full-Stack Engineers who build scalable software solutions daily."
+        },
+        {
+          "icon": "laptop-code",
+          "title": "Project Driven",
+          "desc": "No boring presentations. Learn entire web concepts by building complete end-to-end architectures."
+        },
+        {
+          "icon": "certificate",
+          "title": "Professional Edge",
+          "desc": "Get a secure industry certificate that validates your development capability."
+        },
+        {
+          "icon": "users",
+          "title": "Tech Community",
+          "desc": "Join dynamic peer groups, build team projects, and solve challenging hackathons."
+        },
+        {
+          "icon": "headset",
+          "title": "24/7 Code Support",
+          "desc": "Stuck on a nasty bug or middleware error? Our TAs will help you debug code anytime."
+        },
+        {
+          "icon": "briefcase",
+          "title": "Placement Network",
+          "desc": "Optimize your GitHub, practice mock coding rounds, and get corporate introductions."
+        }
+      ],
+      "tools": [
+        {
+          "name": "React",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+        },
+        {
+          "name": "Node.js",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg"
+        },
+        {
+          "name": "MongoDB",
+          "logo": "https://upload.wikimedia.org/wikipedia/en/4/45/MongoDB-Logo.svg"
+        },
+        {
+          "name": "Tailwind",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"
+        }
+      ],
+      "curriculum": [
+        {
+          "title": "Module 1: Advanced Frontend with React & Tailwind CSS",
+          "duration": "5 Weeks",
+          "icon": "code",
+          "description": "Master component architectures, custom hooks, state management, and designing responsive modern layouts.",
+          "topics": [
+            "Modern JavaScript essentials (ES6+, Promises, Async/Await)",
+            "React core engine (Virtual DOM, JSX, Props, State)",
+            "Deep dive into Hooks (useState, useEffect, useMemo, useCallback)",
+            "Responsive designs using utility-first Tailwind CSS framework",
+            "Global State Management using Redux Toolkit or Context API"
+          ],
+          "projects": [
+            "Responsive Real-time Crypto Market Analytics Dashboard",
+            "Collaborative Interactive Notes Web Application with Local Storage"
+          ]
+        },
+        {
+          "title": "Module 2: Backend Foundations with Node.js & Express.js",
+          "duration": "4 Weeks",
+          "icon": "laptop-code",
+          "description": "Learn how to build secure, robust, and lightning-fast server architectures and REST APIs.",
+          "topics": [
+            "Node.js runtime environment architecture & Event Loop",
+            "Building modular routing servers using Express framework",
+            "REST API design conventions and standard HTTP status codes",
+            "Writing custom custom Middlewares for logging and validation",
+            "Handling file uploads using Multer tools securely"
+          ],
+          "projects": [
+            "Robust File Storage and Organization Microservice API",
+            "Dynamic Weather Data Aggregator Backend API"
+          ]
+        },
+        {
+          "title": "Module 3: Database Architecture with MongoDB & Mongoose",
+          "duration": "3 Weeks",
+          "icon": "database",
+          "description": "Understand NoSQL database schema modeling, indexing, and complex data relationships.",
+          "topics": [
+            "Introduction to MongoDB and NoSQL databases",
+            "Object Data Modeling using powerful Mongoose schemas",
+            "CRUD operations and advanced query filtering logic",
+            "Database relationships (Embedding documents vs Referencing)",
+            "Aggregation pipelines for advanced analytical processing"
+          ],
+          "projects": [
+            "Comprehensive Multi-Vendor Inventory Management Database Structure",
+            "Advanced User Activity Tracking Logging Service Schema"
+          ]
+        },
+        {
+          "title": "Module 4: Full-Stack Integration, Security & Auth",
+          "duration": "4 Weeks",
+          "icon": "brain",
+          "description": "Connect frontend with backend and secure your apps using token-based authentication mechanisms.",
+          "topics": [
+            "CORS issues handling and Axios configuration settings",
+            "Secure authentication protocols using JWT (JSON Web Tokens)",
+            "Password encryption implementations using bcrypt modules",
+            "Cookie-based sessions and local storage token management",
+            "Error handling wrapper configurations on entire application stack"
+          ],
+          "projects": [
+            "Secure E-Commerce Platform Gateway with Cart Integration",
+            "Social Media Platform Engine featuring Feed Post Interactions"
+          ]
+        },
+        {
+          "title": "Module 5: Production Workflows with Next.js Framework",
+          "duration": "4 Weeks",
+          "icon": "table",
+          "description": "Future-proof your skills with Next.js for server-side rendering, SEO benefits, and optimized production loads.",
+          "topics": [
+            "Next.js App Router paradigm, file-based routing architectures",
+            "Server Components vs Client Components rendering models",
+            "Server-Side Rendering (SSR) and Static Site Generation (SSG)",
+            "Optimized API routes inside Next.js frameworks",
+            "SEO configurations, Image component performance optimizations"
+          ],
+          "projects": [
+            "High-Performance Enterprise Blogging and Content Platform",
+            "SaaS Product Marketing Landing Page with fully optimized SEO"
+          ]
+        },
+        {
+          "title": "Module 6: Capstone Project Deployment & DevOps Basics",
+          "duration": "4 Weeks",
+          "icon": "briefcase",
+          "description": "Deploy your complete applications on cloud servers and prepare extensively for tech interviews.",
+          "topics": [
+            "Environment variables management and security best practices",
+            "Deploying frontends to Vercel/Netlify environments",
+            "Deploying Node.js servers and database instances to AWS/Render",
+            "Data structures and algorithms essentials for web developers",
+            "Comprehensive portfolio development and live mock code reviews"
+          ],
+          "projects": [
+            "Full-Scale Production Industry Capstone App deployed publicly",
+            "Professional Developer Portfolio Website featuring all project live links"
+          ]
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Rohan Deshmukh",
+          "role": "SDE-1 at Zepto",
+          "text": "The MERN stack program changed my perspective on engineering. Deploying full-scale apps on AWS gave me extreme confidence.",
+          "avatar": "https://randomuser.me/api/portraits/men/12.jpg",
+          "rating": 5
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Do I need any previous coding background for MERN track?",
+          "answer": "Basic understanding of HTML/CSS is helpful, but not required. We cover absolute basics of Javascript before building complex React and backend systems."
+        },
+        {
+          "question": "Will we learn Next.js as well in this program?",
+          "answer": "Yes! Modern web apps require Next.js for optimization, so an entire comprehensive module is dedicated to Next.js production architectures."
+        }
+      ],
+      "fee": {
+        "original": 39999,
+        "discounted": 29999,
+        "emi": "₹4,999/month",
+        "savings": 10000
+      },
+      "learningOptionsPrice": {
+        "classroom": "₹39,999",
+        "live-online": "₹29,999",
+        "self-paced": "₹14,999"
+      },
+      "batchStartsInDays": 7,
+      "seatsLeft": 18
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+
+
+html, body {
+  overflow-x: hidden;
+}
+/* --- CUSTOM SCROLLBAR --- */
+/* 1. Scrollbar ki width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* 2. Track (Peeche ka background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* 3. Handle (Jo chalti hai) */
+::-webkit-scrollbar-thumb {
+  background: #4F46E5; /* Indigo-600 (Analytics Circle Primary) */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* Spacing effect ke liye */
+}
+
+/* 4. Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3730a3; /* Thoda dark Indigo hover par */
+}
+
+section {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

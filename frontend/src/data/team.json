@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Keshav Bansal",
+    "role": "Data Scientist",
+    "avatar": "/images/keshav.jpeg",
+    "bio": "Certified in GenAI & Machine Learning with 10+ years at EXL, Wipro & other Top MNCs as Data Scientist."
+  },
+  {
+    "name": "Shruti Gupta",
+    "role": "Co Founder",
+    "avatar": "/images/Shruti.jpeg",
+    "bio": "Passionate about bridging the gap between education and employment."
+  },
+  {
+    "name": "Amit Kumar",
+    "role": "Data Analyst",
+    "avatar": "/images/amit.png",
+    "bio": "Data analyst at Analytics Circle with expertise in Python, SQL and PowerBI development."
+  }
+]
