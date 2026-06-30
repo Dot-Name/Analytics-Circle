@@ -11,12 +11,12 @@ import Phase3Lectures from './tabs/Phase3Lectures';
 import Phase4Quiz from './tabs/Phase4Quiz';
 
 // Sharp Custom Layout Control Icons
-const TerminalIcon = () => <svg className="w-3.5 h-3.5 mr-1.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>;
-const ArrowRightIcon = () => <svg className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>;
-const ArrowLeftIcon = () => <svg className="w-4 h-4 mr-1.5 transition-transform duration-200 group-hover:-translate-x-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>;
-const DropSessionIcon = () => <svg className="w-4 h-4 mr-1.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const CheckCircleIcon = () => <svg className="w-4 h-4 mr-1.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const CloudUploadIcon = () => <svg className="w-4 h-4 mr-1.5 animate-pulse shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>;
+const TerminalIcon = () => <svg className="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>;
+const ArrowRightIcon = () => <svg className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>;
+const ArrowLeftIcon = () => <svg className="w-4 h-4 mr-1.5 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>;
+const DropSessionIcon = () => <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const CheckCircleIcon = () => <svg className="w-4 h-4 mr-1.5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
+const CloudUploadIcon = () => <svg className="w-4 h-4 mr-1.5 animate-pulse" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>;
 
 export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
   const [courseId, setCourseId] = useState(courseData?._id || null);
@@ -98,49 +98,47 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
   ];
 
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
+    <div className="w-full bg-white border border-slate-200/90 rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
       
       {/* Wizard Header Status Timeline Navigation Matrix */}
-      <div className="bg-linear-to-r from-slate-900 via-indigo-950 to-slate-900 p-4 sm:p-6 md:p-8 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6 border-b border-slate-800">
-        <div className="space-y-1.5 min-w-0 w-full lg:w-auto">
-          <span className="inline-flex items-center text-[10px] sm:text-[11px] uppercase font-black text-teal-400 tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-800/60">
+      <div className="bg-linear-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 sm:p-8 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border-b border-slate-800">
+        <div className="space-y-1.5">
+          <span className="inline-flex items-center text-[11px] uppercase font-black text-teal-400 tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-800/60">
             <TerminalIcon /> {courseId ? "Editing System Matrix Node" : "LMS Content Control Panel Builder"}
           </span>
-          <h2 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-white truncate">
+          <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white">
             Structured Deployment Wizard Pipeline
           </h2>
         </div>
 
-        {/* Unified Responsive Steps Timeline Map with mobile horizontal scrolling guardrails */}
-        <div className="w-full lg:w-auto overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex items-center gap-1.5 bg-slate-800/60 p-1.5 rounded-xl sm:rounded-2xl border border-slate-700/50 backdrop-blur-md min-w-[540px] lg:min-w-0">
-            {stepsConfig.map((step) => {
-              const isCurrent = wizardStep === step.number;
-              const isCompleted = wizardStep > step.number;
-              return (
-                <div
-                  key={step.number}
-                  className={`flex items-center gap-1 px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black tracking-wide uppercase transition-all duration-200 flex-1 lg:flex-initial text-center justify-center whitespace-nowrap ${
-                    isCurrent 
-                      ? 'bg-teal-600 text-white shadow-md shadow-teal-900/20 scale-[1.02]' 
-                      : isCompleted
-                      ? 'text-emerald-400 bg-slate-900/40'
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  {isCompleted && <CheckCircleIcon />}
-                  <span>{step.number}. {step.label}</span>
-                </div>
-              );
-            })}
-          </div>
+        {/* Unified Responsive Steps Timeline Map */}
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-800/60 p-1.5 rounded-2xl border border-slate-700/50 backdrop-blur-md w-full lg:w-auto">
+          {stepsConfig.map((step) => {
+            const isCurrent = wizardStep === step.number;
+            const isCompleted = wizardStep > step.number;
+            return (
+              <div
+                key={step.number}
+                className={`flex items-center gap-1 px-4 py-2 rounded-xl text-xs font-black tracking-wide uppercase transition-all duration-200 flex-1 lg:flex-initial text-center justify-center ${
+                  isCurrent 
+                    ? 'bg-teal-600 text-white shadow-md shadow-teal-900/20 scale-[1.02]' 
+                    : isCompleted
+                    ? 'text-emerald-400 bg-slate-900/40'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {isCompleted && <CheckCircleIcon />}
+                <span>{step.number}. {step.label}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Main Panel Form Insertion Container */}
-      <div className="p-4 sm:p-6 md:p-10 bg-white">
+      <div className="p-6 sm:p-10 bg-white">
         {wizardStep === 1 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <Phase1BasicInfo 
               register={register} 
               setValue={setValue} 
@@ -149,11 +147,11 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
               setDescriptionText={setDescriptionText} 
               setThumbnailFile={setThumbnailFile} 
             />
-            <div className="flex flex-col-reverse sm:flex-row gap-4 items-center justify-between pt-6 border-t border-slate-100">
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-6 border-t border-slate-100">
               <button 
                 type="button" 
                 onClick={onWorkspaceExit} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group py-2"
+                className="flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group"
               >
                 <DropSessionIcon /> Drop Architecture Session
               </button>
@@ -162,7 +160,7 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
                 type="button" 
                 onClick={handleSubmit(onFormSubmit)} 
                 disabled={isSaving} 
-                className="w-full sm:w-auto flex items-center justify-center group bg-teal-600 hover:bg-teal-700 disabled:bg-slate-200 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 cursor-pointer text-center"
+                className="w-full sm:w-auto flex items-center justify-center group bg-teal-600 hover:bg-teal-700 disabled:bg-slate-200 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95"
               >
                 {isSaving ? (
                   <>
@@ -170,7 +168,7 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
                   </>
                 ) : (
                   <>
-                    <span className="truncate">{courseId ? "Save Meta Modifications" : "Initialize Course Shell Container"}</span>
+                    {courseId ? "Save Meta Modifications" : "Initialize Course Shell Container"}
                     <ArrowRightIcon />
                   </>
                 )}
@@ -180,7 +178,7 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
         )}
 
         {wizardStep === 2 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <Phase2Sections 
               currentCourseId={courseId} 
               sections={sections} 
@@ -192,14 +190,14 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
               <button 
                 type="button" 
                 onClick={() => setWizardStep(1)} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group order-2 sm:order-1 py-2"
+                className="flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group"
               >
                 <ArrowLeftIcon /> Review Meta Specifications
               </button>
               <button 
                 type="button" 
                 onClick={onWorkspaceExit} 
-                className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 text-center cursor-pointer order-1 sm:order-2"
+                className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95"
               >
                 Complete and Exit Dashboard
               </button>
@@ -208,7 +206,7 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
         )}
 
         {wizardStep === 3 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
+          <div className="space-y-8 animate-fadeIn">
             <Phase3Lectures 
               currentCourseId={courseId} 
               activeSection={activeSectionIndex} 
@@ -218,16 +216,16 @@ export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
               <button 
                 type="button" 
                 onClick={() => setWizardStep(2)} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group order-2 sm:order-1 py-2"
+                className="flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group"
               >
                 <ArrowLeftIcon /> Return to Sections Grid
               </button>
               <button 
                 type="button" 
                 onClick={() => setWizardStep(4)} 
-                className="w-full sm:w-auto flex items-center justify-center group bg-amber-600 hover:bg-amber-700 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 text-center cursor-pointer order-1 sm:order-2"
+                className="w-full sm:w-auto flex items-center justify-center group bg-amber-600 hover:bg-amber-700 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95"
               >
-                <span className="truncate">Advance to Section Quiz Parameters</span> <ArrowRightIcon />
+                Advance to Section Quiz Parameters <ArrowRightIcon />
               </button>
             </div>
           </div>
