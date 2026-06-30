@@ -54,7 +54,7 @@ export default function AdminDashboard() {
   return (
     <div>
       <Navbar />
-      <div className="flex w-full h-screen bg-slate-50 text-slate-600 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-hidden">
+      <div className="flex w-full h-[95dvh] bg-slate-50 text-slate-600 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-hidden">
         
         {/* 📱 Mobile Top Ribbon Bar Panel */}
         <div className="lg:hidden absolute top-0 left-0 right-0 h-14 bg-white/95 backdrop-blur-md border-b border-slate-200/80 flex items-center justify-between px-4 z-40">
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
 
         {/* 🪟 Full Height Responsive Sidebar Panel Shelf */}
         <aside className={`
-          fixed inset-y-0 left-0 z-50 bg-white border-r border-slate-200/80 flex flex-col justify-between p-4 transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen shrink-0
+          fixed inset-y-0 left-0 z-10 bg-white border-r border-slate-200/80 flex flex-col justify-between p-4 transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-screen shrink-0
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           ${isCollapsed ? 'lg:w-20' : 'lg:w-64'}
         `}>
