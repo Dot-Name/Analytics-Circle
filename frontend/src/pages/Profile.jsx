@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import axiosInstance from '../api/axiosInstance';
 import { ProfileHeader, FormSection, InputField, SocialInput } from '../components/ProfileComponents';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
@@ -28,10 +28,9 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.put('http://localhost:5000/api/v1/users/profile', {}, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        // Automatically injects current Authorization headers via interceptor setup
+        // Swapped .put() to .get() to accurately represent data retrieval requests
+        const response = await axiosInstance.get('/users/profile');
 
         if (response.data?.success) {
           const user = response.data.data;
@@ -84,10 +83,8 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      const token = localStorage.getItem('accessToken');
-      const response = await axios.put('http://localhost:5000/api/v1/users/profile', formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      // Replaced absolute path with clean endpoint route leveraging centralized base instance configuration
+      const response = await axiosInstance.put('/users/profile', formData);
 
       if (response.data?.success) {
         toast.success("Identity parameters synchronized cleanly!");

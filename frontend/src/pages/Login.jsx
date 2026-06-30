@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast'; 
-import axios from 'axios'; // 🔌 Import axios for direct API calls
+import axiosInstance from '../api/axiosInstance.js'; // 🔌 Swapped to centralized client router
 import { loginUser } from '../services/authService.js';
 import { getOrCreateDeviceId } from '../utils/getDeviceId.js';
 import Navbar from '../components/Navbar';
@@ -68,7 +68,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/auth/send-otp', { email: otpLoginEmail });
+      const response = await axiosInstance.post('/auth/send-otp', { email: otpLoginEmail });
       toast.success(response.data?.message || 'OTP sent successfully! Check your inbox.', {
         duration: 4000,
         style: { border: '1px solid #036a6f', padding: '16px', color: '#036a6f', fontWeight: '600', background: '#f0fdfa' },
@@ -85,47 +85,47 @@ const Login = () => {
   };
 
   // ⚡ Phase 1.5B: Verify Login OTP & Complete Session Auth
-const handleVerifyLoginOTP = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  try {
-    const deviceId = getOrCreateDeviceId();
-    const payload = { email: otpLoginEmail, otp: loginOtp, deviceId };
+  const handleVerifyLoginOTP = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const deviceId = getOrCreateDeviceId();
+      const payload = { email: otpLoginEmail, otp: loginOtp, deviceId };
 
-    const response = await axios.post('http://localhost:5000/api/v1/auth/verify-otp', payload);
-    
-    if (response.data?.success || response.data?.accessToken) {
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      const response = await axiosInstance.post('/auth/verify-otp', payload);
       
-      // 🗺️ Role-Based Route Destination Extraction
-      const role = response.data.user?.role?.toLowerCase() || 'student';
-      const destination = role === 'admin' ? '/admin/dashboard' : '/my-courses';
+      if (response.data?.success || response.data?.accessToken) {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        
+        // 🗺️ Role-Based Route Destination Extraction
+        const role = response.data.user?.role?.toLowerCase() || 'student';
+        const destination = role === 'admin' ? '/admin/dashboard' : '/my-courses';
 
-      toast.success('Verification successful! Logged in.', {
-        duration: 3000,
-        style: { border: '1px solid #036a6f', padding: '16px', color: '#036a6f', fontWeight: '600', background: '#f0fdfa' },
+        toast.success('Verification successful! Logged in.', {
+          duration: 3000,
+          style: { border: '1px solid #036a6f', padding: '16px', color: '#036a6f', fontWeight: '600', background: '#f0fdfa' },
+        });
+
+        // 🚀 Redirect explicitly based on role
+        setTimeout(() => navigate(destination), 1500);
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Invalid or expired OTP token.', {
+        duration: 4000,
+        style: { border: '1px solid #ef4444', padding: '16px', color: '#b91c1c', fontWeight: '600', background: '#fef2f2' },
       });
-
-      // 🚀 Redirect explicitly based on role
-      setTimeout(() => navigate(destination), 1500);
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    toast.error(err.response?.data?.message || 'Invalid or expired OTP token.', {
-      duration: 4000,
-      style: { border: '1px solid #ef4444', padding: '16px', color: '#b91c1c', fontWeight: '600', background: '#fef2f2' },
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   // 📧 Phase 2: Request Forgot Password OTP
   const handleForgotPasswordSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/api/v1/auth/forgot-password', { email: forgotEmail });
+      const response = await axiosInstance.post('/auth/forgot-password', { email: forgotEmail });
       toast.success(response.data?.message || 'OTP sent successfully! Check your inbox.', {
         duration: 4000,
         style: { border: '1px solid #036a6f', padding: '16px', color: '#036a6f', fontWeight: '600', background: '#f0fdfa' },
@@ -148,7 +148,7 @@ const handleVerifyLoginOTP = async (e) => {
     try {
       const payload = { email: forgotEmail, otp: resetData.otp, newPassword: resetData.newPassword };
 
-      const response = await axios.post('http://localhost:5000/api/v1/auth/reset-password', payload);
+      const response = await axiosInstance.post('/auth/reset-password', payload);
       toast.success(response.data?.message || 'Password reset successfully! Log in now.', {
         duration: 4000,
         style: { border: '1px solid #036a6f', padding: '16px', color: '#036a6f', fontWeight: '600', background: '#f0fdfa' },
@@ -236,7 +236,6 @@ const handleVerifyLoginOTP = async (e) => {
                       {loading ? 'Signing In...' : 'Sign In'}
                     </button>
 
-                    {/* Quick Access Switcher for OTP Access Method */}
                     <button type="button" onClick={() => { setStep('otp-login'); setOtpSent(false); }} className="w-full text-center cursor-pointer text-xs font-bold uppercase tracking-wider text-gray-500 hover:text-gray-700 transition duration-150 mt-2">
                       Sign in using OTP secure pin instead
                     </button>
@@ -248,7 +247,7 @@ const handleVerifyLoginOTP = async (e) => {
                 </>
               )}
 
-              {/* ⚡ NEW SCREEN: PASSWORD-LESS OTP LOGIN */}
+              {/* ⚡ SCREEN: PASSWORD-LESS OTP LOGIN */}
               {step === 'otp-login' && (
                 <>
                   <div className="mb-4">

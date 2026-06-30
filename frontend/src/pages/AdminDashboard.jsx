@@ -1,284 +1,153 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
-import { ProfileHeader, FormSection, InputField, SocialInput } from '../components/ProfileComponents';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import React, { useState } from 'react';
+import { 
+  Users, 
+  BookOpen, 
+  FileText, 
+  DollarSign, 
+  LogOut, 
+  Menu, 
+  X,
+  ShieldAlert
+} from 'lucide-react';
 
-const Profile = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [fetching, setFetching] = useState(true);
+// 🌟 Import your modularized sub-view components dynamically
+import ManageUser from '../components/Admin/ManageUsers/ManageUsers';
+import ManageCourse from '../components/Admin/ManageCourses/ManageCourses';
+import ManageBlogs from '../components/Admin/ManageBlogs/ManageBlogs';
+import RevenueTracker from '../components/Admin/RevenueTracker/RevenueTracker';
 
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    age: '',
-    role: '',
-    profilePicture: '',
-    profile: {
-      bio: '',
-      headline: '',
-      location: { city: '', country: '' },
-      socials: { linkedin: '', github: '', twitter: '', website: '' }
-    }
-  });
+export default function AdminDashboard() {
+  // Track which panel is currently focused
+  const [activeTab, setActiveTab] = useState('USERS');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.put('http://localhost:5000/api/v1/users/profile', {}, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+  // Sidebar navigation configuration mapping keys to views
+  const navigationItems = [
+    { id: 'USERS', name: 'Manage Users', icon: <Users className="w-4 h-4" /> },
+    { id: 'COURSES', name: 'Manage Courses', icon: <BookOpen className="w-4 h-4" /> },
+    { id: 'BLOGS', name: 'Manage Blogs', icon: <FileText className="w-4 h-4" /> },
+    { id: 'REVENUE', name: 'Revenue Tracker', icon: <DollarSign className="w-4 h-4" /> },
+  ];
 
-        if (response.data?.success) {
-          const user = response.data.data;
-          setFormData({
-            fullName: user.fullName || '',
-            email: user.email || '',
-            phone: user.phone || '',
-            age: user.age || '',
-            role: user.role || 'STUDENT',
-            profilePicture: user.profilePicture || '',
-            profile: {
-              bio: user.profile?.bio || '',
-              headline: user.profile?.headline || '',
-              location: {
-                city: user.profile?.location?.city || '',
-                country: user.profile?.location?.country || ''
-              },
-              socials: {
-                linkedin: user.profile?.socials?.linkedin || '',
-                github: user.profile?.socials?.github || '',
-                twitter: user.profile?.socials?.twitter || '',
-                website: user.profile?.socials?.website || ''
-              }
-            }
-          });
-        }
-      } catch (error) {
-        console.error("Failed to parse registry snapshot:", error);
-        toast.error("Failed to load secure metadata parameters.");
-      } finally {
-        setFetching(false);
-      }
-    };
-
-    fetchUserProfile();
-  }, []);
-
-  const handleNestedChange = (section, key, value) => {
-    setFormData(prev => ({
-      ...prev,
-      profile: {
-        ...prev.profile,
-        [section]: key ? { ...prev.profile[section], [key]: value } : value
-      }
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const token = localStorage.getItem('accessToken');
-      const response = await axios.put('http://localhost:5000/api/v1/users/profile', formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      if (response.data?.success) {
-        toast.success("Identity parameters synchronized cleanly!");
-        setIsEditing(false);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Execution engine mutation failure.");
-    } finally {
-      setLoading(false);
+  // Render sub-components matching the selected state layer
+  const renderActiveView = () => {
+    switch (activeTab) {
+      case 'USERS':
+        return <ManageUser />;
+      case 'COURSES':
+        return <ManageCourse />;
+      case 'BLOGS':
+        return <ManageBlogs />;
+      case 'REVENUE':
+        return <RevenueTracker />;
+      default:
+        return <ManageUser />;
     }
   };
-
-  if (fetching) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50/50">
-        <div className="animate-spin rounded-full h-8 w-8 border-2 border-slate-200 border-t-[#036a6f]" />
-      </div>
-    );
-  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50/50">
-      <Navbar />
+    <div className="flex h-screen bg-slate-100 font-sans text-xs text-slate-600 overflow-hidden relative">
       
-      <div className="flex-grow py-6 sm:py-12 px-4 sm:px-6 lg:px-8 font-sans antialiased">
-        <Toaster position="top-center" />
-        
-        <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
-          
-          {/* Modular Profile Cover Banner & Meta Identity Grid Component */}
-          <ProfileHeader 
-            role={formData.role}
-            fullName={formData.fullName}
-            headline={formData.profile.headline}
-            profilePicture={formData.profilePicture}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-          />
-
-          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-            
-            {/* SECTION 1: Core System Information Mapping */}
-            <FormSection title="Core Registry Details" icon="ri-shield-user-line">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full col-span-full">
-                <InputField 
-                  label="Full Name Identity" 
-                  type="text" 
-                  isEditing={isEditing} 
-                  value={formData.fullName}
-                  onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                />
-                
-                <div className="space-y-2 min-w-0 w-full">
-                  <label className="flex text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider items-center gap-1.5">
-                    <i className="ri-lock-line text-amber-500 shrink-0" /> Account Email Target
-                  </label>
-                  <input
-                    type="email"
-                    disabled
-                    value={formData.email}
-                    className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 bg-slate-100/70 text-slate-400 font-semibold text-xs sm:text-sm outline-hidden cursor-not-allowed select-none truncate"
-                  />
-                </div>
-                
-                <InputField 
-                  label="Phone Vector" 
-                  type="tel" 
-                  isEditing={isEditing} 
-                  value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                />
-                
-                <InputField 
-                  label="Age Value Metric" 
-                  type="number" 
-                  isEditing={isEditing} 
-                  value={formData.age}
-                  onChange={(e) => setFormData({...formData, age: e.target.value})}
-                />
-              </div>
-            </FormSection>
-
-            {/* SECTION 2: Customized Profile Representation Mapping */}
-            <FormSection title="Professional Footprint" icon="ri-profile-line">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full col-span-full">
-                <div className="col-span-full">
-                  <InputField 
-                    label="Custom Sub-Headline" 
-                    type="text" 
-                    isEditing={isEditing} 
-                    value={formData.profile.headline}
-                    onChange={(e) => handleNestedChange('headline', null, e.target.value)}
-                    placeholder="e.g., Senior Systems Architect | Developer"
-                  />
-                </div>
-                
-                <div className="col-span-full space-y-2">
-                  <label className="block text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider">Account Biography Overview</label>
-                  <textarea
-                    rows="4"
-                    disabled={!isEditing}
-                    value={formData.profile.bio}
-                    onChange={(e) => handleNestedChange('bio', null, e.target.value)}
-                    className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 bg-white disabled:bg-slate-50/80 disabled:text-slate-400 font-medium text-slate-800 text-xs sm:text-sm focus:ring-4 focus:ring-[#036a6f]/10 focus:border-[#036a6f] outline-hidden transition resize-none"
-                    placeholder="Write a brief professional background history summary..."
-                  />
-                </div>
-                
-                <InputField 
-                  label="Location City Node" 
-                  type="text" 
-                  isEditing={isEditing} 
-                  value={formData.profile.location.city}
-                  onChange={(e) => handleNestedChange('location', 'city', e.target.value)}
-                />
-                
-                <InputField 
-                  label="Country Scope" 
-                  type="text" 
-                  isEditing={isEditing} 
-                  value={formData.profile.location.country}
-                  onChange={(e) => handleNestedChange('location', 'country', e.target.value)}
-                />
-              </div>
-            </FormSection>
-
-            {/* SECTION 3: Social Account URL Mappings */}
-            <FormSection title="Social Sync Coordinates" icon="ri-global-line">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full col-span-full">
-                <SocialInput 
-                  label="LinkedIn Network Profile" 
-                  icon="ri-linkedin-fill" 
-                  brandColor="text-blue-600" 
-                  isEditing={isEditing}
-                  value={formData.profile.socials.linkedin}
-                  onChange={(e) => handleNestedChange('socials', 'linkedin', e.target.value)}
-                />
-                <SocialInput 
-                  label="GitHub Environment Track" 
-                  icon="ri-github-line" 
-                  brandColor="text-slate-900" 
-                  isEditing={isEditing}
-                  value={formData.profile.socials.github}
-                  onChange={(e) => handleNestedChange('socials', 'github', e.target.value)}
-                />
-                <SocialInput 
-                  label="Twitter / X Identity" 
-                  icon="ri-twitter-x-fill" 
-                  brandColor="text-slate-800" 
-                  isEditing={isEditing}
-                  value={formData.profile.socials.twitter}
-                  onChange={(e) => handleNestedChange('socials', 'twitter', e.target.value)}
-                />
-                <SocialInput 
-                  label="Personal Hub Portfolio" 
-                  icon="ri-link" 
-                  brandColor="text-teal-600" 
-                  isEditing={isEditing}
-                  value={formData.profile.socials.website}
-                  onChange={(e) => handleNestedChange('socials', 'website', e.target.value)}
-                />
-              </div>
-            </FormSection>
-
-            {/* Conditional Action Controls Matrix */}
-            {isEditing && (
-              <div className="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
-                <button
-                  type="button"
-                  onClick={() => setIsEditing(false)}
-                  className="w-full sm:w-auto px-6 py-3.5 text-center text-slate-500 hover:text-slate-800 text-xs sm:text-sm font-bold transition cursor-pointer"
-                >
-                  Discard Changes
-                </button>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#036a6f] to-[#025357] text-white font-bold text-xs sm:text-sm tracking-wide shadow-xl shadow-[#036a6f]/10 hover:shadow-[#036a6f]/20 transition-all duration-200 disabled:opacity-50 cursor-pointer text-center whitespace-nowrap"
-                >
-                  {loading ? 'Synchronizing Transaction...' : 'Save Changes'}
-                </button>
-              </div>
-            )}
-          </form>
+      {/* 📱 Mobile Menu Trigger Top-Bar */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-white border-b border-slate-200 flex items-center justify-between px-4 z-40">
+        <div className="flex items-center gap-2">
+          <div className="p-1.5 bg-indigo-600 rounded-lg text-white">
+            <ShieldAlert className="w-4 h-4" />
+          </div>
+          <span className="font-black text-slate-900 tracking-tight text-sm">Ops Engine</span>
         </div>
+        <button 
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 text-slate-500 hover:bg-slate-50 rounded-xl border border-slate-200 cursor-pointer transition-colors"
+          aria-label="Toggle Navigation Sidebar"
+        >
+          {sidebarOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+        </button>
       </div>
-      
-      <Footer />
+
+      {/* 🪟 Sidebar Panel (Desktop Side-dock & Mobile Drawer Slide-out Layer) */}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 flex flex-col justify-between p-5 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-full shrink-0
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <div className="space-y-7">
+          {/* Logo Branding Head */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 bg-slate-900 rounded-xl text-white shadow-xs">
+                <ShieldAlert className="w-4.5 h-4.5 text-indigo-400 stroke-[2.5]" />
+              </div>
+              <div>
+                <h2 className="font-black text-slate-900 tracking-tight text-sm leading-none">Admin Hub</h2>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mt-1">LMS Headquarters</p>
+              </div>
+            </div>
+            {/* Close Mobile Overlay Toggle Button */}
+            <button 
+              onClick={() => setSidebarOpen(false)} 
+              className="lg:hidden p-1.5 hover:bg-slate-50 border border-slate-100 rounded-lg text-slate-400 cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Navigation Matrix Link Stacks */}
+          <nav className="space-y-1">
+            {navigationItems.map((item) => {
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setSidebarOpen(false); // Snap shut mobile drawer smoothly on click selection
+                  }}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs transition-all border cursor-pointer select-none active:scale-[0.98] ${
+                    isActive 
+                      ? 'bg-slate-950 border-slate-950 text-white shadow-md shadow-slate-950/10' 
+                      : 'bg-white border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                  }`}
+                >
+                  <span className={isActive ? 'text-indigo-400' : 'text-slate-400'}>
+                    {item.icon}
+                  </span>
+                  {item.name}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Action Button Footer Element */}
+        <div className="border-t border-slate-100 pt-4">
+          <button
+            type="button"
+            className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 font-bold text-xs rounded-xl transition cursor-pointer active:scale-[0.98]"
+          >
+            <LogOut className="w-4 h-4 stroke-[2.5]" />
+            Exit Dashboard
+          </button>
+        </div>
+      </aside>
+
+      {/* 🌫️ Background backdrop shading overlay for mobile panels */}
+      {sidebarOpen && (
+        <div 
+          onClick={() => setSidebarOpen(false)} 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-30 lg:hidden transition-opacity duration-300"
+        />
+      )}
+
+      {/* 🖥️ Context Canvas Workspace Window Panel */}
+      <main className="flex-1 flex flex-col h-full pt-14 lg:pt-0 overflow-hidden">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 max-w-7xl w-full mx-auto">
+          <div className="bg-white border border-slate-200/80 rounded-2xl min-h-[calc(100vh-7rem)] lg:min-h-[calc(100vh-4rem)] p-4 sm:p-6 shadow-xs overflow-x-auto">
+            {renderActiveView()}
+          </div>
+        </div>
+      </main>
+
     </div>
   );
-};
-
-export default Profile;
+}
