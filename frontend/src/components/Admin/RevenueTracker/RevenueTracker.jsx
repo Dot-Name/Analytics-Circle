@@ -10,7 +10,7 @@ export default function RevenueTracker() {
   ];
 
   return (
-    <div className="space-y-6 w-full animate-fadeIn">
+    <div className="space-y-6 w-full animate-fadeIn m-10 sm:m-15">
       <div>
         <h2 className="text-2xl font-bold text-gray-900">Revenue & Insights Control</h2>
         <p className="text-xs text-gray-500 mt-0.5">Track institutional earnings, live transaction registries, and subscription tier statistics.</p>

@@ -60,7 +60,7 @@ export default function AdminOverview({ onTabChange }) {
   ];
 
   return (
-    <div className="p-4 md:p-8 space-y-6 md:space-y-8 max-w-7xl mx-auto animate-fadeIn pb-16 lg:pb-8">
+    <div className="p-4 md:p-8 m-10 sm:m-15 space-y-6 md:space-y-8 max-w-7xl mx-auto animate-fadeIn pb-16 lg:pb-8">
       
       {/* 🌟 Top Header Welcomer Block */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/60 pb-5 md:pb-6">
