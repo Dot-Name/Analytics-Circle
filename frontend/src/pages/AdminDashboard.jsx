@@ -54,7 +54,7 @@ export default function AdminDashboard() {
   return (
     <div>
       <Navbar />
-      <div className="flex w-full h-[95dvh] bg-slate-50 text-slate-600 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-hidden">
+      <div className="flex w-full h-[90dvh] bg-slate-50 text-slate-600 font-sans antialiased selection:bg-indigo-500 selection:text-white overflow-hidden">
         
         {/* 📱 Mobile Top Ribbon Bar Panel */}
         <div className="lg:hidden absolute top-0 left-0 right-0 h-14 bg-white/95 backdrop-blur-md border-b border-slate-200/80 flex items-center justify-between px-4 z-40">
@@ -78,6 +78,7 @@ export default function AdminDashboard() {
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           ${isCollapsed ? 'lg:w-20' : 'lg:w-64'}
         `}>
+          {/* Top Section Grouping Identity and Navigation Links */}
           <div className="space-y-6">
             {/* Header Identity Deck */}
             <div className="flex items-center justify-between h-10 px-2">
@@ -133,8 +134,8 @@ export default function AdminDashboard() {
             </nav>
           </div>
 
-          {/* 🔘 Minimal Shelf Collapser Toggle - Absolutely Anchored to Bottom Grid Block */}
-          <div className="hidden lg:block border-t border-slate-100 pt-3 mt-auto">
+          {/* 🔘 Minimal Shelf Collapser Toggle - Positioned strictly at the bottom of the container */}
+          <div className="hidden lg:block border-t border-slate-100 pt-3">
             <button
               type="button"
               onClick={() => setIsCollapsed(!isCollapsed)}
