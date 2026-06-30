@@ -176,7 +176,7 @@ export default function AdminDashboard() {
         </main>
 
       </div>
-        <div>its me</div>
+        
       {/* 🏷️ Platform Footer Row */}
       <Footer />
     </div>
