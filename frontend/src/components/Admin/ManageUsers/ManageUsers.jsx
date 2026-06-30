@@ -33,9 +33,14 @@ export default function ManageUsers() {
         Object.entries(filters).filter(([_, v]) => v !== '')
       )).toString();
 
-      // Cleaned base URL and authorization header metadata layers
       const response = await axiosInstance.get(`/admin/users?${queryParams}`, { signal });
-      if (response.data?.success) setUsers(response.data.data);
+      
+      // Defensively unpacks both wrapped envelope objects and raw arrays
+      if (response.data?.success) {
+        setUsers(response.data.data || []);
+      } else if (Array.isArray(response.data)) {
+        setUsers(response.data);
+      }
     } catch (err) {
       if (err?.name !== 'CanceledError') {
         toast.error("Failed to retrieve user accounts database directory.");
@@ -46,7 +51,14 @@ export default function ManageUsers() {
   const syncCoursesCatalog = async () => {
     try {
       const response = await axiosInstance.get('/courses'); 
-      if (response.data) setCourses(response.data.data || response.data);
+      // Defensively checks for response payload envelopes vs raw structures
+      if (response.data?.success) {
+        setCourses(response.data.data || []);
+      } else if (Array.isArray(response.data)) {
+        setCourses(response.data);
+      } else if (response.data) {
+        setCourses(response.data.courses || response.data);
+      }
     } catch (err) {
       console.error("Course matrix read error", err);
     }
@@ -56,6 +68,8 @@ export default function ManageUsers() {
     try {
       const response = await axiosInstance.get(`/admin/users/${studentId}/subscription`);
       if (response.data?.success) {
+        setSubscriptions(response.data.subscriptions || response.data.data || []);
+      } else if (Array.isArray(response.data?.subscriptions)) {
         setSubscriptions(response.data.subscriptions);
       }
     } catch (err) {
@@ -83,15 +97,10 @@ export default function ManageUsers() {
   const handleCreateUser = async (payload) => {
     try {
       const response = await axiosInstance.post('/admin/users', payload);
-      if (response.data?.success) {
+      if (response.data?.success || response.status === 201) {
         toast.success(`Account successfully provisioned for ${payload.fullName || 'new user'}.`);
         setModalOpen(false);
-        
-        const queryParams = new URLSearchParams(Object.fromEntries(
-          Object.entries(filters).filter(([_, v]) => v !== '')
-        )).toString();
-        const freshUsers = await axiosInstance.get(`/admin/users?${queryParams}`);
-        if (freshUsers.data?.success) setUsers(freshUsers.data.data);
+        syncUsersRoster();
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Failed to finalize account setup parameters.");
@@ -104,7 +113,7 @@ export default function ManageUsers() {
 
     try {
       const response = await axiosInstance.patch(`/admin/users/${id}/toggle-status`, { status: targetStatus });
-      if (response.data?.success) {
+      if (response.data?.success || response.status === 200) {
         if (targetStatus === "BLOCKED") {
           toast.error(`${userName} is now restricted from access.`, { icon: '🚫' });
         } else {
@@ -148,7 +157,7 @@ export default function ManageUsers() {
               toast.dismiss(t.id);
               try {
                 const response = await axiosInstance.delete(`/admin/users/${id}`);
-                if (response.data?.success) {
+                if (response.data?.success || response.status === 200) {
                   toast.success(`Account record metrics for ${userName} purged cleanly.`);
                   setUsers(prev => prev.filter(u => u._id !== id));
                   if (selectedStudent?._id === id) {
@@ -177,7 +186,7 @@ export default function ManageUsers() {
 
     try {
       const response = await axiosInstance.post(`/admin/users/${selectedStudent._id}/subscription`, newEnrollment);
-      if (response.data?.success) {
+      if (response.data?.success || response.status === 200) {
         toast.success(`Access Granted: Successfully enrolled in "${courseTitle}"`, { icon: '🔑' });
         syncStudentSubscriptions(selectedStudent._id);
         
@@ -200,7 +209,7 @@ export default function ManageUsers() {
     const courseTitle = subRecord?.courseDetails?.title || "this deployment package";
 
     toast((t) => (
-      <div className="flex flex-col gap-4 p-2 w-full max-w-sm min-h-32.5 justify-between animate-fadeIn">
+      <div className="flex flex-col gap-4 p-2 w-full max-w-sm min-h-32.5 justify-between">
         <div className="flex items-start gap-3">
           <div className="text-amber-500 text-2xl shrink-0 mt-0.5 select-none">
             <i className="ri-shield-user-fill" />
@@ -209,7 +218,7 @@ export default function ManageUsers() {
             <h6 className="text-sm font-black text-slate-900 tracking-tight leading-snug">
               Revoke Licensing Entitlements?
             </h6>
-            <p className="text-xs font-semibold text-slate-500 leading-relaxed wrap-break-words">
+            <p className="text-xs font-semibold text-slate-500 leading-relaxed">
               Revoking access removes student rights immediately for:
               <strong className="text-xs font-bold block mt-1.5 bg-amber-50 text-amber-900 px-2.5 py-1.5 rounded-xl border border-amber-100/70 truncate">
                 {courseTitle}
@@ -221,21 +230,21 @@ export default function ManageUsers() {
         <div className="flex items-center justify-end gap-2 border-t border-slate-100 pt-3">
           <button 
             type="button"
-            className="bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-bold px-3.5 py-2 rounded-xl transition-colors cursor-pointer border border-slate-200"
+            className="bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-bold px-3.5 py-2 rounded-xl border border-slate-200 cursor-pointer"
             onClick={() => toast.dismiss(t.id)}
           >
             Retain Access
           </button>
           <button 
             type="button"
-            className="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm shadow-amber-600/10 transition-colors cursor-pointer"
+            className="bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm cursor-pointer"
             onClick={async () => {
               toast.dismiss(t.id);
               try {
                 const response = await axiosInstance.delete(`/admin/users/${selectedStudent._id}/subscription`, {
                   data: { courseId }
                 });
-                if (response.data?.success) {
+                if (response.data?.success || response.status === 200) {
                   toast.success(`Revoked: Subscription to "${courseTitle}" has been dissolved.`, { icon: '✂️' });
                   syncStudentSubscriptions(selectedStudent._id);
                   setUsers(prev => prev.map(u => {
@@ -260,7 +269,7 @@ export default function ManageUsers() {
   const selectActiveStudent = (user) => {
     setSelectedStudent(user);
     syncStudentSubscriptions(user._id);
-    setWorkbenchOpen(true); // Smoothly signals the responsive slide-out to engage on mobile triggers
+    setWorkbenchOpen(true);
   };
 
   const handleCloseWorkbench = () => {
@@ -301,8 +310,8 @@ export default function ManageUsers() {
           />
         </div>
 
-        {/* Injects state handling hooks to open dynamically inside drawer viewports */}
-        {(!selectedStudent || workbenchOpen) && (
+        {/* Responsive conditional engine checking for drawers */}
+        {workbenchOpen && selectedStudent && (
           <EnrollmentWorkbench 
             selectedStudent={selectedStudent}
             courses={courses}
