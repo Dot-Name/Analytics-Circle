@@ -42,7 +42,8 @@ export default function AdminDashboard() {
   const renderActiveView = () => {
     switch (activeTab) {
       case 'OVERVIEW':
-        return <AdminOverview />;
+        // Pass the state hook mutation trigger right down into the overview workspace canvas
+        return <AdminOverview onTabChange={(targetTab) => setActiveTab(targetTab)} />;
       case 'COURSES':
         return <ManageCourse />;
       case 'USERS':
@@ -52,7 +53,7 @@ export default function AdminDashboard() {
       case 'REVENUE':
         return <RevenueTracker />;
       default:
-        return <AdminOverview />;
+        return <AdminOverview onTabChange={(targetTab) => setActiveTab(targetTab)} />;
     }
   };
 
