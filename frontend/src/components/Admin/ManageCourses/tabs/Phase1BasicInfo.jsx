@@ -38,91 +38,91 @@ export default function Phase1BasicInfo({
   }, [courseData, setValue, setDescriptionText]);
 
   return (
-    <div className="space-y-8 animate-fadeIn text-sm text-slate-600">
+    <div className="space-y-6 sm:space-y-8 animate-fadeIn text-sm text-slate-600 px-1">
       
       {/* 🏷️ Core Descriptive Metadata Layer */}
-      <div className="space-y-5">
-        <h3 className="text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
-          <span className="w-1.5 h-5 bg-teal-600 rounded-full"></span>
+      <div className="space-y-4 sm:space-y-5">
+        <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <span className="w-1.5 h-5 bg-teal-600 rounded-full shrink-0"></span>
           Core Asset Specifications
         </h3>
 
-        <div className="grid grid-cols-1 gap-5">
+        <div className="grid grid-cols-1 gap-4 sm:gap-5">
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Course Title *</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Course Title *</label>
             <input 
               type="text" 
               required 
               {...register("title")} 
-              className="w-full bg-slate-50 font-semibold border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition" 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
               placeholder="e.g., Complete Data Science Masterclass" 
             />
           </div>
 
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Subtitle Description Summary</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Subtitle Description Summary</label>
             <input 
               type="text" 
               {...register("subtitle")} 
-              className="w-full bg-slate-50 font-medium border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition" 
-              placeholder="e.g., Learn Python, SQL, and Tableau from foundational vectors to cloud delivery profiles." 
+              className="w-full bg-slate-50 font-medium border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+              placeholder="e.g., Learn Python, SQL, and Tableau..." 
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Routing URL Slug *</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Routing URL Slug *</label>
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
                 <GlobeIcon />
               </span>
               <input 
                 type="text" 
                 required 
                 {...register("slug")} 
-                className="w-full bg-slate-50 font-bold border border-slate-200 pl-10 pr-4 py-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition text-slate-800" 
+                className="w-full bg-slate-50 font-bold border border-slate-200 pl-10 pr-4 py-2.5 sm:py-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-800" 
                 placeholder="complete-data-science" 
               />
             </div>
           </div>
           
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Primary Core Category *</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Primary Core Category *</label>
             <input 
               type="text" 
               required 
               {...register("category")} 
-              className="w-full bg-slate-50 font-bold border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition text-slate-800" 
+              className="w-full bg-slate-50 font-bold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-800" 
             />
           </div>
         </div>
 
         <div>
-          <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Detailed Documentation Block (Markdown Enabled) *</label>
+          <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Detailed Documentation Block (Markdown Enabled) *</label>
           <textarea 
             required 
             value={descriptionText} 
             onChange={(e) => setDescriptionText(e.target.value)} 
             rows={5} 
-            className="w-full bg-slate-50 font-medium border border-slate-200 p-4 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition leading-relaxed text-slate-800" 
+            className="w-full bg-slate-50 font-medium border border-slate-200 p-3 sm:p-4 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition leading-relaxed text-slate-800 resize-y" 
             placeholder="Provide deep structural specification data about this curriculum matrix entry..." 
           />
         </div>
       </div>
 
       {/* 💰 Media Assets and Pipeline Financials Mapping Grid */}
-      <div className="pt-6 border-t border-slate-100 space-y-5">
-        <h3 className="text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
-          <span className="w-1.5 h-5 bg-teal-600 rounded-full"></span>
+      <div className="pt-5 sm:pt-6 border-t border-slate-100 space-y-4 sm:space-y-5">
+        <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <span className="w-1.5 h-5 bg-teal-600 rounded-full shrink-0"></span>
           Financials & Media Attachments
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Base Access Valuation Price (USD) *</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Base Access Valuation Price (USD) *</label>
             <div className="relative">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
                 <DollarIcon />
               </span>
               <input 
@@ -130,25 +130,25 @@ export default function Phase1BasicInfo({
                 required 
                 min="0" 
                 {...register("price")} 
-                className="w-full bg-slate-50 font-black border border-slate-200 pl-9 pr-4 py-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition text-slate-800" 
+                className="w-full bg-slate-50 font-black border border-slate-200 pl-9 pr-4 py-2.5 sm:py-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-800" 
                 placeholder="0 for Free Tier allocation" 
               />
             </div>
           </div>
 
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Thumbnail Card Canvas Vector</label>
-            <div className="border border-slate-200 bg-slate-50 rounded-xl p-2 flex items-center justify-between">
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Thumbnail Card Canvas Vector</label>
+            <div className="border border-slate-200 bg-slate-50 rounded-xl p-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <input 
                 type="file" 
                 accept="image/*" 
                 onChange={(e) => {
                   if (e.target.files?.[0]) setThumbnailFile(e.target.files[0]);
                 }} 
-                className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-black file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer cursor-pointer flex-1" 
+                className="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-black file:bg-slate-900 file:text-white hover:file:bg-slate-800 file:cursor-pointer cursor-pointer flex-1 w-full min-w-0" 
               />
               {courseData?.thumbnail && (
-                <span className="inline-flex items-center text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-1 rounded-md shrink-0">
+                <span className="inline-flex items-center text-[10px] font-black uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-1 rounded-md shrink-0 self-start sm:self-auto">
                   <CheckIcon /> Active Media
                 </span>
               )}
@@ -158,47 +158,47 @@ export default function Phase1BasicInfo({
       </div>
 
       {/* 🔍 Embedded Search Engine Optimization (SEO Schema Alignment Layer) */}
-      <div className="pt-6 border-t border-slate-100 space-y-5">
-        <div className="flex items-center justify-between">
-          <h3 className="text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
-            <span className="w-1.5 h-5 bg-indigo-600 rounded-full"></span>
-            Search Indexing & Open Graph Meta Layers
+      <div className="pt-5 sm:pt-6 border-t border-slate-100 space-y-4 sm:space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
+            <span className="w-1.5 h-5 bg-indigo-600 rounded-full shrink-0"></span>
+            Search Indexing & Meta Layers
           </h3>
-          <span className="text-[10px] bg-indigo-50 border border-indigo-100 px-2 py-0.5 text-indigo-700 font-black tracking-widest uppercase rounded flex items-center">
+          <span className="text-[9px] sm:text-[10px] bg-indigo-50 border border-indigo-100 px-2 py-0.5 text-indigo-700 font-black tracking-widest uppercase rounded flex items-center self-start sm:self-auto gap-1">
             <SparklesIcon /> SEO Engine
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Meta Title Header Segment</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Meta Title Header Segment</label>
             <input 
               type="text" 
               maxLength={70}
               {...register("seo.metaTitle")}
-              className="w-full bg-slate-50 font-semibold border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition" 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
               placeholder="Displays inside browser tab cuts (Max 70 chars)" 
             />
           </div>
 
           <div>
-            <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Target Focus Anchor Keyword</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Target Focus Anchor Keyword</label>
             <input 
               type="text" 
               {...register("seo.focusKeyword")}
-              className="w-full bg-slate-50 font-semibold border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition" 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
               placeholder="e.g., Learn Data Science Architecture" 
             />
           </div>
         </div>
 
         <div>
-          <label className="block mb-1.5 text-xs font-black uppercase tracking-wider text-slate-500">Meta Snippet Description Summary</label>
+          <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Meta Snippet Description Summary</label>
           <textarea 
             maxLength={160}
             {...register("seo.metaDescription")}
             rows={2}
-            className="w-full bg-slate-50 font-medium border border-slate-200 p-3 rounded-xl focus:outline-hidden focus:bg-white focus:border-indigo-600 transition text-slate-700" 
+            className="w-full bg-slate-50 font-medium border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-700 resize-y" 
             placeholder="Displays underneath indexing title URLs inside global search engines logs (Max 160 chars)" 
           />
         </div>
