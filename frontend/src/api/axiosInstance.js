@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
 
         // 🔄 Hit the /auth/refresh route relatively using our configured base path URL 
         const response = await axios.post(
-          'http://localhost:5000/api/v1/auth/refresh',
+          'https://analytics-circle.onrender.com/api/v1',
           {},
           { withCredentials: true } // Ensures the browser sends the HTTP-Only refresh cookie
         );

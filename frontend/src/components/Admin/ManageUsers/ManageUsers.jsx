@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
+import axiosInstance from '../../../api/axiosInstance'; // 🔌 Centralized HTTP routing engine
 
 import { UserRow } from './UserRow';
 import { CreateUserModal } from './CreateUserModal';
@@ -20,15 +20,11 @@ export default function ManageUsers() {
   // Controls & Loaders States
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
-  const [workbenchOpen, setWorkbenchOpen] = useState(false); // 🌟 ADDED: Explicit responsive layout modal/drawer control state
+  const [workbenchOpen, setWorkbenchOpen] = useState(false); // 🌟 Explicit responsive layout modal/drawer control state
   const [newEnrollment, setNewEnrollment] = useState({ courseId: '', customExpiryDays: '365' });
 
   // Filter Arrays
   const [filters, setFilters] = useState({ role: '', status: '', city: '', country: '' });
-
-  const token = localStorage.getItem('accessToken');
-  const headers = { Authorization: `Bearer ${token}` };
-  const BASE_URL = 'http://localhost:5000/api/v1/admin';
 
   // Core Synchronization Functions
   const syncUsersRoster = async (signal) => {
@@ -37,10 +33,11 @@ export default function ManageUsers() {
         Object.entries(filters).filter(([_, v]) => v !== '')
       )).toString();
 
-      const response = await axios.get(`${BASE_URL}/users?${queryParams}`, { headers, signal });
+      // Cleaned base URL and authorization header metadata layers
+      const response = await axiosInstance.get(`/admin/users?${queryParams}`, { signal });
       if (response.data?.success) setUsers(response.data.data);
     } catch (err) {
-      if (!axios.isCancel(err)) {
+      if (err?.name !== 'CanceledError') {
         toast.error("Failed to retrieve user accounts database directory.");
       }
     }
@@ -48,7 +45,7 @@ export default function ManageUsers() {
 
   const syncCoursesCatalog = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/courses'); 
+      const response = await axiosInstance.get('/courses'); 
       if (response.data) setCourses(response.data.data || response.data);
     } catch (err) {
       console.error("Course matrix read error", err);
@@ -57,7 +54,7 @@ export default function ManageUsers() {
 
   const syncStudentSubscriptions = async (studentId) => {
     try {
-      const response = await axios.get(`${BASE_URL}/users/${studentId}/subscription`, { headers });
+      const response = await axiosInstance.get(`/admin/users/${studentId}/subscription`);
       if (response.data?.success) {
         setSubscriptions(response.data.subscriptions);
       }
@@ -85,7 +82,7 @@ export default function ManageUsers() {
 
   const handleCreateUser = async (payload) => {
     try {
-      const response = await axios.post(`${BASE_URL}/users`, payload, { headers });
+      const response = await axiosInstance.post('/admin/users', payload);
       if (response.data?.success) {
         toast.success(`Account successfully provisioned for ${payload.fullName || 'new user'}.`);
         setModalOpen(false);
@@ -93,7 +90,7 @@ export default function ManageUsers() {
         const queryParams = new URLSearchParams(Object.fromEntries(
           Object.entries(filters).filter(([_, v]) => v !== '')
         )).toString();
-        const freshUsers = await axios.get(`${BASE_URL}/users?${queryParams}`, { headers });
+        const freshUsers = await axiosInstance.get(`/admin/users?${queryParams}`);
         if (freshUsers.data?.success) setUsers(freshUsers.data.data);
       }
     } catch (err) {
@@ -106,7 +103,7 @@ export default function ManageUsers() {
     const userName = contextUser?.fullName || "User";
 
     try {
-      const response = await axios.patch(`${BASE_URL}/users/${id}/toggle-status`, { status: targetStatus }, { headers });
+      const response = await axiosInstance.patch(`/admin/users/${id}/toggle-status`, { status: targetStatus });
       if (response.data?.success) {
         if (targetStatus === "BLOCKED") {
           toast.error(`${userName} is now restricted from access.`, { icon: '🚫' });
@@ -150,7 +147,7 @@ export default function ManageUsers() {
             onClick={async () => {
               toast.dismiss(t.id);
               try {
-                const response = await axios.delete(`${BASE_URL}/users/${id}`, { headers });
+                const response = await axiosInstance.delete(`/admin/users/${id}`);
                 if (response.data?.success) {
                   toast.success(`Account record metrics for ${userName} purged cleanly.`);
                   setUsers(prev => prev.filter(u => u._id !== id));
@@ -179,7 +176,7 @@ export default function ManageUsers() {
     const courseTitle = targetCourse?.title || "selected course package";
 
     try {
-      const response = await axios.post(`${BASE_URL}/users/${selectedStudent._id}/subscription`, newEnrollment, { headers });
+      const response = await axiosInstance.post(`/admin/users/${selectedStudent._id}/subscription`, newEnrollment);
       if (response.data?.success) {
         toast.success(`Access Granted: Successfully enrolled in "${courseTitle}"`, { icon: '🔑' });
         syncStudentSubscriptions(selectedStudent._id);
@@ -235,8 +232,8 @@ export default function ManageUsers() {
             onClick={async () => {
               toast.dismiss(t.id);
               try {
-                const response = await axios.delete(`${BASE_URL}/users/${selectedStudent._id}/subscription`, {
-                  headers, data: { courseId }
+                const response = await axiosInstance.delete(`/admin/users/${selectedStudent._id}/subscription`, {
+                  data: { courseId }
                 });
                 if (response.data?.success) {
                   toast.success(`Revoked: Subscription to "${courseTitle}" has been dissolved.`, { icon: '✂️' });
@@ -263,7 +260,7 @@ export default function ManageUsers() {
   const selectActiveStudent = (user) => {
     setSelectedStudent(user);
     syncStudentSubscriptions(user._id);
-    setWorkbenchOpen(true); // 🌟 ADDED: Smoothly signals the responsive slide-out to engage on mobile triggers
+    setWorkbenchOpen(true); // Smoothly signals the responsive slide-out to engage on mobile triggers
   };
 
   const handleCloseWorkbench = () => {
@@ -304,7 +301,7 @@ export default function ManageUsers() {
           />
         </div>
 
-        {/* 🌐 MOVED/CHANGED: Injects state handling hooks to open dynamically inside drawer viewports */}
+        {/* Injects state handling hooks to open dynamically inside drawer viewports */}
         {(!selectedStudent || workbenchOpen) && (
           <EnrollmentWorkbench 
             selectedStudent={selectedStudent}
