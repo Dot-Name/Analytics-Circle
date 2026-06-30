@@ -17,7 +17,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 // 🌟 Modular Sub-view Components
-import AdminOverview from '../../components/Admin/AdminOverview/AdminOverview'; // New Operations Entry Hub
+import AdminOverview from '../../components/Admin/AdminOverview/AdminOverview'; // Operations Entry Hub
 import ManageUser from '../../components/Admin/ManageUsers/ManageUsers';
 import ManageCourse from '../../components/Admin/ManageCourses/ManageCourses';
 import ManageBlogs from '../../components/Admin/ManageBlogs/ManageBlogs';
@@ -27,7 +27,7 @@ export default function AdminDashboard() {
   // Navigation State Configuration
   const [activeTab, setActiveTab] = useState('OVERVIEW');
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false); // 🌟 Collapsible desktop sidebar state
+  const [isCollapsed, setIsCollapsed] = useState(false); // Collapsible desktop sidebar state
 
   // Elegant, ordered navigation architecture mapping keys to views
   const navigationItems = [
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
           ${isCollapsed ? 'lg:w-20' : 'lg:w-64'}
         `}>
           <div className="space-y-6">
-            {/* Header Branding Panel (Hidden layout values on desktop expansion collapses) */}
+            {/* Header Branding Panel */}
             <div className="flex items-center justify-between h-10 px-2">
               <div className="flex items-center gap-2.5 overflow-hidden">
                 <div className="p-2 bg-slate-950 rounded-xl text-white shrink-0 shadow-sm">
@@ -116,7 +116,7 @@ export default function AdminDashboard() {
                 const isActive = activeTab === item.id;
                 return (
                   <button
-                    key={item.id;
+                    key={item.id}
                     type="button"
                     onClick={() => {
                       setActiveTab(item.id);
