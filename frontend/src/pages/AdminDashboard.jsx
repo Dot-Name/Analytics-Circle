@@ -83,7 +83,7 @@ export default function AdminDashboard() {
 
         {/* 🪟 Collapsible Desktop Dock & Mobile Slide Drawer Panel */}
         <aside className={`
-          fixed inset-y-0 left-0 z-50 bg-white border-r border-slate-200/80 flex flex-col justify-between p-4 transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-full shrink-0
+          fixed inset-y-0 left-0 z-10 bg-white border-r border-slate-200/80 flex flex-col justify-between p-4 transform transition-all duration-300 ease-in-out lg:translate-x-0 lg:static lg:h-full shrink-0
           ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
           ${isCollapsed ? 'lg:w-20' : 'lg:w-64'}
         `}>
