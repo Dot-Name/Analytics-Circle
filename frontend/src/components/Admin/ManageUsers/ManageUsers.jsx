@@ -286,7 +286,7 @@ export default function ManageUsers() {
   }
 
   return (
-    <div className="space-y-8 p-4 sm:p-8 bg-slate-50/30 min-h-screen font-sans antialiased">
+    <div className="space-y-8 m-10 sm:m-15 p-4 sm:p-8 bg-slate-50/30 min-h-screen font-sans antialiased">
       <Toaster 
         position="top-center" 
         reverseOrder={false} 

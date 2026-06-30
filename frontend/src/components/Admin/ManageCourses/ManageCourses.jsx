@@ -129,7 +129,7 @@ export default function ManageCourses() {
   });
 
   return (
-    <div className="w-full space-y-6 sm:space-y-8 animate-fadeIn p-2 max-w-7xl mx-auto">
+    <div className="m-10 sm:m-15 space-y-6 sm:space-y-8 animate-fadeIn p-2 max-w-7xl mx-auto">
       
       {/* 🚀 Header Control Deck Panel */}
       <div className="bg-linear-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 sm:p-10 md:p-12 rounded-2xl sm:rounded-3xl text-white shadow-xl relative overflow-hidden">
