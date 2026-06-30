@@ -17,11 +17,11 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 // 🌟 Modular Sub-view Components
-import AdminOverview from '../../components/Admin/AdminOverview/AdminOverview'; // Operations Entry Hub
-import ManageUser from '../../components/Admin/ManageUsers/ManageUsers';
-import ManageCourse from '../../components/Admin/ManageCourses/ManageCourses';
-import ManageBlogs from '../../components/Admin/ManageBlogs/ManageBlogs';
-import RevenueTracker from '../../components/Admin/RevenueTracker/RevenueTracker';
+import AdminOverview from '../components/Admin/AdminOverview/AdminOverview'; // Operations Entry Hub
+import ManageUser from '../components/Admin/ManageUsers/ManageUsers';
+import ManageCourse from '../components/Admin/ManageCourses/ManageCourses';
+import ManageBlogs from '../components/Admin/ManageBlogs/ManageBlogs';
+import RevenueTracker from '../components/Admin/RevenueTracker/RevenueTracker';
 
 export default function AdminDashboard() {
   // Navigation State Configuration
