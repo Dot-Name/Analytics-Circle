@@ -221,7 +221,7 @@ export default function ManageBlogs() {
   };
 
   return (
-    <div className="space-y-8 w-full animate-fadeIn relative p-2 m-10 sm:m-15">
+    <div className="space-y-8  animate-fadeIn relative p-2 m-10 sm:m-15">
       
       {/* 🥞 TOAST PORTAL */}
       <div className="fixed top-5 right-5 z-100 flex flex-col gap-3 w-full max-w-sm pointer-events-none">
