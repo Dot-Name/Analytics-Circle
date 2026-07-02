@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import axiosInstance from '../../../../api/axiosInstance';
+import axiosInstance from '../../../api/axiosInstance';
 
 // Import Your Reusable Child Subcomponents
-import Phase1BasicInfo from './Phase1BasicInfo';
-import Phase2Sections from './Phase2Sections';
-import Phase3Lectures from './Phase3Lectures';
-import Phase4Quiz from './Phase4Quiz';
+import Phase1BasicInfo from './tabs/Phase1BasicInfo';
+import Phase2Sections from './tabs/Phase2Sections';
+import Phase3Lectures from './ManageCourses';
+import Phase4Quiz from './tabs/Phase4Quiz';
 
 export default function AdminCourseBuilder({ courseId = null }) {
   const [currentStep, setCurrentStep] = useState(1);
