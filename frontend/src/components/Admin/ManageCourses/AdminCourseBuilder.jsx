@@ -29,6 +29,13 @@ export default function AdminCourseBuilder({ courseId = null }) {
       subtitle: '',
       category: 'Data Analysis',
       price: 0,
+      heroHighlights: {
+        highlight1: '',
+        highlight2: ''
+      },
+      careerRole: '',
+      durationMonths: 0,
+      customDesc: '',
       seo: {
         metaTitle: '',
         metaDescription: '',
@@ -44,9 +51,8 @@ export default function AdminCourseBuilder({ courseId = null }) {
         try {
           const response = await axiosInstance.get(`/courses/${currentCourseId}`);
           
-          // Matrix Normalization: Adapting directly to nested data changes on your server
-          // (Handles fallback patterns if your backend nests properties inside .course or .data)
-          const targetPayload = response.data?.course || response.data?.data || response.data;
+          // 🔄 Fixed to match backend .data nesting pattern
+          const targetPayload = response.data?.data || response.data?.course || response.data;
           
           if (targetPayload) {
             setCourseData(targetPayload);
@@ -76,6 +82,15 @@ export default function AdminCourseBuilder({ courseId = null }) {
       multipartPayload.append("price", Number(formData.price));
       multipartPayload.append("description", descriptionText.trim());
       
+      // 🌟 Serialization Mapping for the New Landing Page Parameters
+      if (formData.heroHighlights) {
+        multipartPayload.append("heroHighlights[highlight1]", (formData.heroHighlights.highlight1 || "").trim());
+        multipartPayload.append("heroHighlights[highlight2]", (formData.heroHighlights.highlight2 || "").trim());
+      }
+      multipartPayload.append("careerRole", (formData.careerRole || "").trim());
+      multipartPayload.append("durationMonths", Number(formData.durationMonths || 0));
+      multipartPayload.append("customDesc", (formData.customDesc || "").trim());
+
       // Strict structural map alignment for nested SEO schemas
       if (formData.seo) {
         multipartPayload.append("seo[metaTitle]", (formData.seo.metaTitle || "").trim());
@@ -100,10 +115,20 @@ export default function AdminCourseBuilder({ courseId = null }) {
         toast.success("New course entity instantiated.");
       }
 
-      // Deep parse returned wrapper tags to keep states unified
-      const updatedCourse = response.data?.course || response.data?.data || response.data;
-      if (updatedCourse?._id) {
-        setCurrentCourseId(updatedCourse._id);
+      // 🔄 Alignment Fix: Explicit target tracking pointing to response.data.data
+      const savedCoursePayload = response.data?.data || response.data?.course || response.data;
+      
+      if (savedCoursePayload) {
+        // Safe check for string ID formats vs nested Mongo $oid maps
+        const verifiedId = typeof savedCoursePayload._id === 'object' && savedCoursePayload._id?.$oid
+          ? savedCoursePayload._id.$oid
+          : savedCoursePayload._id;
+
+        if (verifiedId) {
+          setCurrentCourseId(verifiedId);
+        }
+        setCourseData(savedCoursePayload);
+        setSections(savedCoursePayload.sections || savedCoursePayload.modules || []);
       }
       
       // Advance execution index gracefully to next dashboard quadrant

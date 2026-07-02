@@ -24,10 +24,17 @@ export default function Phase1BasicInfo({
       setValue("category", courseData.category || "Data Analysis");
       setValue("price", courseData.price !== undefined ? courseData.price : 0);
       
-      // 🔄 Dual-Channel Hydration Normalization (Safeguards against backend flat/nested changes)
-      setValue("seo.metaTitle", courseData.seoTitle || courseData.seo?.metaTitle || "");
-      setValue("seo.metaDescription", courseData.seoDescription || courseData.seo?.metaDescription || "");
-      setValue("seo.focusKeyword", courseData.seoKeyword || courseData.seo?.focusKeyword || "");
+      // 🔄 Syncing New Dynamic Landing Content Schema Properties Safely
+      setValue("heroHighlights.highlight1", courseData.heroHighlights?.highlight1 || "");
+      setValue("heroHighlights.highlight2", courseData.heroHighlights?.highlight2 || "");
+      setValue("careerRole", courseData.careerRole || "");
+      setValue("durationMonths", courseData.durationMonths !== undefined ? courseData.durationMonths : 0);
+      setValue("customDesc", courseData.customDesc || "");
+      
+      // Dual-Channel Hydration Normalization for SEO Nodes
+      setValue("seo.metaTitle", courseData.seo?.metaTitle || courseData.seoTitle || "");
+      setValue("seo.metaDescription", courseData.seo?.metaDescription || courseData.seoDescription || "");
+      setValue("seo.focusKeyword", courseData.seo?.focusKeyword || courseData.seoKeyword || "");
       
       if (courseData.description) {
         setDescriptionText(courseData.description);
@@ -53,7 +60,7 @@ export default function Phase1BasicInfo({
               required 
               {...register("title")} 
               className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
-              placeholder="e.g., Complete Data Science Masterclass" 
+              placeholder="e.g., Master Data Analytics with GenAI from Zero to Hero" 
             />
           </div>
 
@@ -63,7 +70,7 @@ export default function Phase1BasicInfo({
               type="text" 
               {...register("subtitle")} 
               className="w-full bg-slate-50 font-medium border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
-              placeholder="e.g., Learn Python, SQL, and Tableau..." 
+              placeholder="e.g., Transform your career with our comprehensive data analytics program..." 
             />
           </div>
         </div>
@@ -80,7 +87,7 @@ export default function Phase1BasicInfo({
                 required 
                 {...register("slug")} 
                 className="w-full bg-slate-50 font-bold border border-slate-200 pl-10 pr-4 py-2.5 sm:py-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-800" 
-                placeholder="complete-data-science" 
+                placeholder="dataanalysis" 
               />
             </div>
           </div>
@@ -92,8 +99,71 @@ export default function Phase1BasicInfo({
               required 
               {...register("category")} 
               className="w-full bg-slate-50 font-bold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition text-slate-800" 
+              placeholder="e.g., Data Analysis"
             />
           </div>
+        </div>
+      </div>
+
+      {/* 🚀 Marketing Strategy & Landing Page Enhancements Layer */}
+      <div className="pt-5 sm:pt-6 border-t border-slate-100 space-y-4 sm:space-y-5">
+        <h3 className="text-sm sm:text-base font-black text-slate-900 tracking-tight flex items-center gap-2">
+          <span className="w-1.5 h-5 bg-indigo-600 rounded-full shrink-0"></span>
+          Landing Page Layout Elements
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <div>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Hero Highlight Headline 1</label>
+            <input 
+              type="text" 
+              {...register("heroHighlights.highlight1")} 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+              placeholder="e.g., Data Analytics" 
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Hero Highlight Headline 2</label>
+            <input 
+              type="text" 
+              {...register("heroHighlights.highlight2")} 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+              placeholder="e.g., with GenAI" 
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          <div>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Target Career Placement Role</label>
+            <input 
+              type="text" 
+              {...register("careerRole")} 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+              placeholder="e.g., Data-Driven Professional" 
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Course Duration Metric (Months)</label>
+            <input 
+              type="number" 
+              {...register("durationMonths")} 
+              className="w-full bg-slate-50 font-semibold border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+              placeholder="e.g., 6" 
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Custom Section Subtext Context</label>
+          <input 
+            type="text" 
+            {...register("customDesc")} 
+            className="w-full bg-slate-50 font-medium border border-slate-200 p-2.5 sm:p-3 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition" 
+            placeholder="e.g., The demand for data analytics professionals is soaring..." 
+          />
         </div>
 
         <div>
@@ -102,8 +172,8 @@ export default function Phase1BasicInfo({
             required 
             value={descriptionText} 
             onChange={(e) => setDescriptionText(e.target.value)} 
-            rows={5} 
-            className="w-full bg-slate-50 font-medium border border-slate-200 p-3 sm:p-4 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition leading-relaxed text-slate-800 resize-y" 
+            rows={7} 
+            className="w-full bg-slate-50 font-medium border border-slate-200 p-3 sm:p-4 rounded-xl focus:outline-none focus:bg-white focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/10 transition leading-relaxed text-slate-800 resize-y font-mono text-xs" 
             placeholder="Provide deep structural specification data about this curriculum matrix entry..." 
           />
         </div>
@@ -118,7 +188,7 @@ export default function Phase1BasicInfo({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
-            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Base Access Valuation Price (USD) *</label>
+            <label className="block mb-1.5 text-[10px] sm:text-xs font-black uppercase tracking-wider text-slate-500">Base Access Valuation Price *</label>
             <div className="relative">
               <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">
                 <DollarIcon />
