@@ -24,7 +24,9 @@ const reviewSchema = new mongoose.Schema(
       required: [true, "Review comment text context parameters cannot be blank."],
       trim: true,
       maxlength: [1000, "Commentary text space parameters cannot exceed 1000 characters."]
-    }
+    },
+    // Inside reviewSchema
+    isFeaturedTestimonial: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

@@ -1,249 +1,210 @@
-// AdminCourseBuilder.jsx
+// tabs/AdminCourseBuilder.jsx
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import axiosInstance from '../../../api/axiosInstance';
+import axiosInstance from '../../../../api/axiosInstance';
 
-// Modular import layout mappings
-import Phase1BasicInfo from './tabs/Phase1BasicInfo';
-import Phase2Sections from './tabs/Phase2Sections';
-import Phase3Lectures from './tabs/Phase3Lectures';
-import Phase4Quiz from './tabs/Phase4Quiz';
+// Import Your Reusable Child Subcomponents
+import Phase1BasicInfo from './Phase1BasicInfo';
+import Phase2Sections from './Phase2Sections';
+import Phase3Lectures from './Phase3Lectures';
+import Phase4Quiz from './Phase4Quiz';
 
-// Sharp Custom Layout Control Icons
-const TerminalIcon = () => <svg className="w-3.5 h-3.5 mr-1.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>;
-const ArrowRightIcon = () => <svg className="w-4 h-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>;
-const ArrowLeftIcon = () => <svg className="w-4 h-4 mr-1.5 transition-transform duration-200 group-hover:-translate-x-0.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>;
-const DropSessionIcon = () => <svg className="w-4 h-4 mr-1.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const CheckCircleIcon = () => <svg className="w-4 h-4 mr-1.5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-const CloudUploadIcon = () => <svg className="w-4 h-4 mr-1.5 animate-pulse shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" /></svg>;
-
-export default function AdminCourseBuilder({ courseData, onWorkspaceExit }) {
-  const [courseId, setCourseId] = useState(courseData?._id || null);
-  const [wizardStep, setWizardStep] = useState(1);
+export default function AdminCourseBuilder({ courseId = null }) {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [currentCourseId, setCurrentCourseId] = useState(courseId);
+  const [courseData, setCourseData] = useState(null);
+  const [sections, setSections] = useState([]);
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  
+  // Isolated states for un-registered controlled fields mapping to your Phase components
   const [descriptionText, setDescriptionText] = useState('');
   const [thumbnailFile, setThumbnailFile] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
-  
-  const [sections, setSections] = useState([]);
-  const [activeSectionIndex, setActiveSectionIndex] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { register, handleSubmit, setValue } = useForm({
-    defaultValues: { title: '', slug: '', subtitle: '', category: 'Data Analysis', price: 0 }
-  });
-
-  useEffect(() => {
-    if (courseData) {
-      setCourseId(courseData._id);
-      if (courseData.description) {
-        setDescriptionText(courseData.description);
-      }
-      if (courseData.sections) {
-        setSections(courseData.sections);
+  const { register, handleSubmit, setValue, watch } = useForm({
+    defaultValues: {
+      title: '',
+      slug: '',
+      subtitle: '',
+      category: 'Data Analysis',
+      price: 0,
+      seo: {
+        metaTitle: '',
+        metaDescription: '',
+        focusKeyword: ''
       }
     }
-  }, [courseData]);
+  });
 
-  const onFormSubmit = async (data) => {
-    setIsSaving(true);
+  // 🔄 Hydrate data on load if editing an existing entity
+  useEffect(() => {
+    if (currentCourseId) {
+      const fetchCoursePayload = async () => {
+        try {
+          const response = await axiosInstance.get(`/courses/${currentCourseId}`);
+          
+          // Matrix Normalization: Adapting directly to nested data changes on your server
+          // (Handles fallback patterns if your backend nests properties inside .course or .data)
+          const targetPayload = response.data?.course || response.data?.data || response.data;
+          
+          if (targetPayload) {
+            setCourseData(targetPayload);
+            // Ensure child collections synchronize correctly down the component cascade
+            setSections(targetPayload.sections || targetPayload.modules || []);
+          }
+        } catch (err) {
+          console.error("Failed structural hydration sequence:", err);
+          toast.error("Error reading base course matrix data.");
+        }
+      };
+      fetchCoursePayload();
+    }
+  }, [currentCourseId]);
+
+  // 📥 Orchestrates Multi-part Submission Sequence to your Updated Endpoint
+  const handleFormSubmission = async (formData) => {
+    setIsSubmitting(true);
     try {
-      const formData = new FormData();
-      formData.append("title", data.title.trim());
-      formData.append("slug", data.slug.trim().toLowerCase().replace(/\s+/g, "-"));
-      formData.append("subtitle", data.subtitle ? data.subtitle.trim() : "");
-      formData.append("description", descriptionText.trim() || "No specification overview structured.");
-      formData.append("category", data.category);
-      formData.append("price", Number(data.price));
+      const multipartPayload = new FormData();
       
-      formData.append("level", courseData?.level || "BEGINNER");
-      formData.append("language", courseData?.language || "English");
+      // Structural Serialization Core Map (Ensuring deep configuration arrays stay intact)
+      multipartPayload.append("title", formData.title.trim());
+      multipartPayload.append("slug", formData.slug.trim());
+      multipartPayload.append("subtitle", (formData.subtitle || "").trim());
+      multipartPayload.append("category", formData.category.trim());
+      multipartPayload.append("price", Number(formData.price));
+      multipartPayload.append("description", descriptionText.trim());
       
-      const localUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
-      formData.append("instructor", courseData?.instructor || localUser?._id || localUser?.id || "6a2a39f1034cc1bd3a621370");
+      // Strict structural map alignment for nested SEO schemas
+      if (formData.seo) {
+        multipartPayload.append("seo[metaTitle]", (formData.seo.metaTitle || "").trim());
+        multipartPayload.append("seo[metaDescription]", (formData.seo.metaDescription || "").trim());
+        multipartPayload.append("seo[focusKeyword]", (formData.seo.focusKeyword || "").trim());
+      }
 
       if (thumbnailFile) {
-        formData.append("thumbnail", thumbnailFile);
+        multipartPayload.append("thumbnail", thumbnailFile);
       }
 
       let response;
-      
-      if (courseId) {
-        response = await axiosInstance.put(`/courses/${courseId}`, formData, {
+      if (currentCourseId) {
+        response = await axiosInstance.put(`/courses/${currentCourseId}`, multipartPayload, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        toast.success("Course base configurations successfully synchronized!");
+        toast.success("Course base configuration modified successfully.");
       } else {
-        response = await axiosInstance.post('/courses', formData, {
+        response = await axiosInstance.post('/courses', multipartPayload, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
-        toast.success("Course base definitions successfully created!");
+        toast.success("New course entity instantiated.");
+      }
+
+      // Deep parse returned wrapper tags to keep states unified
+      const updatedCourse = response.data?.course || response.data?.data || response.data;
+      if (updatedCourse?._id) {
+        setCurrentCourseId(updatedCourse._id);
       }
       
-      const savedCourse = response.data?.data || response.data;
-      setCourseId(savedCourse._id);
-      setWizardStep(2);
+      // Advance execution index gracefully to next dashboard quadrant
+      setCurrentStep(2);
     } catch (err) {
-      toast.error(err.response?.data?.message || "Operational parameters rejected at base schema processing layer.");
+      console.error("Pipeline submission failure:", err);
+      toast.error(err.response?.data?.message || "Could not save course information settings.");
     } finally {
-      setIsSaving(false);
+      setIsSubmitting(false);
     }
   };
 
-  // Internal configuration matrix timeline descriptors
-  const stepsConfig = [
-    { number: 1, label: "Spec Shell" },
-    { number: 2, label: "Core Chapters" },
-    { number: 3, label: "Streams Engine" },
-    { number: 4, label: "MCQ Evaluator" }
-  ];
+  const nextStep = () => setCurrentStep((prev) => Math.min(prev + 1, 4));
+  const prevStep = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
 
   return (
-    <div className="w-full bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden transition-all duration-300">
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-8 space-y-6 sm:space-y-8 animate-fadeIn">
       
-      {/* Wizard Header Status Timeline Navigation Matrix */}
-      <div className="bg-linear-to-r from-slate-900 via-indigo-950 to-slate-900 p-4 sm:p-6 md:p-8 text-white flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 sm:gap-6 border-b border-slate-800">
-        <div className="space-y-1.5 min-w-0 w-full lg:w-auto">
-          <span className="inline-flex items-center text-[10px] sm:text-[11px] uppercase font-black text-teal-400 tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-800/60">
-            <TerminalIcon /> {courseId ? "Editing System Matrix Node" : "LMS Content Control Panel Builder"}
-          </span>
-          <h2 className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-white truncate">
-            Structured Deployment Wizard Pipeline
-          </h2>
-        </div>
-
-        {/* Unified Responsive Steps Timeline Map with mobile horizontal scrolling guardrails */}
-        <div className="w-full lg:w-auto overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex items-center gap-1.5 bg-slate-800/60 p-1.5 rounded-xl sm:rounded-2xl border border-slate-700/50 backdrop-blur-md min-w-[540px] lg:min-w-0">
-            {stepsConfig.map((step) => {
-              const isCurrent = wizardStep === step.number;
-              const isCompleted = wizardStep > step.number;
-              return (
-                <div
-                  key={step.number}
-                  className={`flex items-center gap-1 px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs font-black tracking-wide uppercase transition-all duration-200 flex-1 lg:flex-initial text-center justify-center whitespace-nowrap ${
-                    isCurrent 
-                      ? 'bg-teal-600 text-white shadow-md shadow-teal-900/20 scale-[1.02]' 
-                      : isCompleted
-                      ? 'text-emerald-400 bg-slate-900/40'
-                      : 'text-slate-400 hover:text-slate-200'
-                  }`}
-                >
-                  {isCompleted && <CheckCircleIcon />}
-                  <span>{step.number}. {step.label}</span>
-                </div>
-              );
-            })}
-          </div>
+      {/* 🧭 Top Navigation Progress Tracker Map (Highly Mobile Responsive) */}
+      <div className="bg-white border border-slate-200 p-3 sm:p-5 rounded-2xl shadow-xs">
+        <div className="flex items-center justify-between overflow-x-auto pb-2 sm:pb-0 scrollbar-none gap-4">
+          {[
+            { step: 1, label: "Core Specs" },
+            { step: 2, label: "Curriculum Map" },
+            { step: 3, label: "Video Tracks" },
+            { step: 4, label: "Assessments" }
+          ].map((node) => (
+            <button
+              key={node.step}
+              disabled={node.step > 1 && !currentCourseId}
+              onClick={() => setCurrentStep(node.step)}
+              className={`flex items-center gap-2 font-black text-xs uppercase tracking-wider shrink-0 transition pb-1 sm:pb-0 border-b-2 sm:border-b-0 ${
+                currentStep === node.step
+                  ? 'text-indigo-600 border-indigo-600'
+                  : 'text-slate-400 border-transparent disabled:opacity-40'
+              }`}
+            >
+              <span className={`w-5 h-5 flex items-center justify-center rounded-lg text-[10px] font-mono border ${
+                currentStep === node.step ? 'bg-indigo-50 border-indigo-200' : 'bg-slate-50 border-slate-200'
+              }`}>
+                {node.step}
+              </span>
+              <span className="hidden sm:inline">{node.label}</span>
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Main Panel Form Insertion Container */}
-      <div className="p-4 sm:p-6 md:p-10 bg-white">
-        {wizardStep === 1 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
+      {/* 🔮 Active Phase Component Controller Injection Pipeline Layer */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-8 shadow-xs">
+        {currentStep === 1 && (
+          <form onSubmit={handleSubmit(handleFormSubmission)} className="space-y-6">
             <Phase1BasicInfo 
               register={register} 
               setValue={setValue} 
-              courseData={courseData} 
-              descriptionText={descriptionText} 
-              setDescriptionText={setDescriptionText} 
-              setThumbnailFile={setThumbnailFile} 
+              courseData={courseData}
+              descriptionText={descriptionText}
+              setDescriptionText={setDescriptionText}
+              setThumbnailFile={setThumbnailFile}
             />
-            <div className="flex flex-col-reverse sm:flex-row gap-4 items-center justify-between pt-6 border-t border-slate-100">
-              <button 
-                type="button" 
-                onClick={onWorkspaceExit} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group py-2"
+            
+            <div className="pt-4 border-t border-slate-100 flex justify-end">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 text-white font-black px-6 py-3.5 rounded-xl text-xs uppercase tracking-wider transition active:scale-95 cursor-pointer text-center"
               >
-                <DropSessionIcon /> Drop Architecture Session
-              </button>
-              
-              <button 
-                type="button" 
-                onClick={handleSubmit(onFormSubmit)} 
-                disabled={isSaving} 
-                className="w-full sm:w-auto flex items-center justify-center group bg-teal-600 hover:bg-teal-700 disabled:bg-slate-200 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 cursor-pointer text-center"
-              >
-                {isSaving ? (
-                  <>
-                    <CloudUploadIcon /> Uploading Cloud Media Assets...
-                  </>
-                ) : (
-                  <>
-                    <span className="truncate">{courseId ? "Save Meta Modifications" : "Initialize Course Shell Container"}</span>
-                    <ArrowRightIcon />
-                  </>
-                )}
+                {isSubmitting ? "Processing Matrix..." : "Save & Continue to Structure"}
               </button>
             </div>
-          </div>
+          </form>
         )}
 
-        {wizardStep === 2 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
-            <Phase2Sections 
-              currentCourseId={courseId} 
-              sections={sections} 
-              setSections={setSections} 
-              setActiveSectionIndex={setActiveSectionIndex} 
-              nextStep={() => setWizardStep(3)} 
-            />
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-6 border-t border-slate-100">
-              <button 
-                type="button" 
-                onClick={() => setWizardStep(1)} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group order-2 sm:order-1 py-2"
-              >
-                <ArrowLeftIcon /> Review Meta Specifications
-              </button>
-              <button 
-                type="button" 
-                onClick={onWorkspaceExit} 
-                className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 text-center cursor-pointer order-1 sm:order-2"
-              >
-                Complete and Exit Dashboard
-              </button>
-            </div>
-          </div>
+        {currentStep === 2 && (
+          <Phase2Sections 
+            currentCourseId={currentCourseId}
+            sections={sections}
+            setSections={setSections}
+            setActiveSectionIndex={setActiveSectionIndex}
+            nextStep={nextStep}
+          />
         )}
 
-        {wizardStep === 3 && (
-          <div className="space-y-6 sm:space-y-8 animate-fadeIn">
-            <Phase3Lectures 
-              currentCourseId={courseId} 
-              activeSection={activeSectionIndex} 
-              sections={sections} 
-            />
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-6 border-t border-slate-100">
-              <button 
-                type="button" 
-                onClick={() => setWizardStep(2)} 
-                className="w-full sm:w-auto justify-center flex items-center text-slate-500 font-extrabold text-sm hover:text-slate-800 transition duration-150 group order-2 sm:order-1 py-2"
-              >
-                <ArrowLeftIcon /> Return to Sections Grid
-              </button>
-              <button 
-                type="button" 
-                onClick={() => setWizardStep(4)} 
-                className="w-full sm:w-auto flex items-center justify-center group bg-amber-600 hover:bg-amber-700 text-white font-black px-6 py-3.5 rounded-xl text-sm tracking-wide transition shadow-xs active:scale-95 text-center cursor-pointer order-1 sm:order-2"
-              >
-                <span className="truncate">Advance to Section Quiz Parameters</span> <ArrowRightIcon />
-              </button>
-            </div>
-          </div>
+        {currentStep === 3 && (
+          <Phase3Lectures 
+            currentCourseId={currentCourseId}
+            activeSection={activeSectionIndex}
+            sections={sections}
+          />
         )}
 
-        {wizardStep === 4 && (
-          <div className="animate-fadeIn">
-            <Phase4Quiz 
-              currentCourseId={courseId} 
-              activeSection={activeSectionIndex} 
-              sections={sections} 
-              prevStep={() => setWizardStep(2)} 
-            />
-          </div>
+        {currentStep === 4 && (
+          <Phase4Quiz 
+            currentCourseId={currentCourseId}
+            activeSection={activeSectionIndex}
+            sections={sections}
+            prevStep={prevStep}
+          />
         )}
       </div>
+      
     </div>
   );
 }

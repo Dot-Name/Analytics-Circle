@@ -9,7 +9,7 @@ import Quiz from "../models/Quiz.js";       // Added import for cascade drop dep
  */
 export const createSection = async (req, res) => {
     try {
-        const { title, courseId, description } = req.body;
+        const { title, courseId, description, projects } = req.body;
 
         if (!title || !courseId) {
             return res.status(400).json({ 
@@ -23,15 +23,21 @@ export const createSection = async (req, res) => {
             return res.status(404).json({ success: false, message: "Associated course not found." });
         }
 
-        // Fix count logic to match field 'course' mapping
         const sectionCount = await Section.countDocuments({ course: courseId });
+        
+        // 🌟 NEW: Safe parsing fallback for incoming project items
+        let parsedProjects = [];
+        if (projects) {
+            parsedProjects = typeof projects === "string" ? JSON.parse(projects) : projects;
+        }
         
         const section = await Section.create({
             title,
             description: description || "",
             course: courseId, 
             order: sectionCount + 1,
-            isPublished: true 
+            isPublished: true,
+            projects: Array.isArray(parsedProjects) ? parsedProjects : [] // 🌟 Storing projects safely
         });
 
         await Course.findByIdAndUpdate(courseId, { 
@@ -49,7 +55,6 @@ export const createSection = async (req, res) => {
  */
 export const getSectionsByCourse = async (req, res) => {
     try {
-        // 💡 HYBRID FIX: Fallback check reads from route params OR incoming URL search queries (?courseId=...)
         const courseId = req.params.courseId || req.query.courseId;
         
         if (!courseId) {
@@ -59,7 +64,6 @@ export const getSectionsByCourse = async (req, res) => {
             });
         }
 
-        // Query documents matching either potential schema definition identifier path
         const sections = await Section.find({
             $or: [
                 { course: courseId },
@@ -67,7 +71,8 @@ export const getSectionsByCourse = async (req, res) => {
             ]
         })
         .sort({ order: 1 })
-        .select("-__v");
+        .select("-__v")
+        .lean(); // 🌟 Lean added for faster parsing execution on read operations
         
         return res.status(200).json({ success: true, count: sections.length, data: sections });
     } catch (error) {
@@ -80,12 +85,21 @@ export const getSectionsByCourse = async (req, res) => {
  */
 export const updateSection = async (req, res) => {
     try {
-        // 💡 Safeguard check: Handles both standard params variations
         const targetSectionId = req.params.id || req.params.sectionId;
+        const updateFields = { ...req.body };
+
+        // 🌟 NEW: Parse projects safely if modified/sent via the dashboard client
+        if (updateFields.projects && typeof updateFields.projects === "string") {
+            try {
+                updateFields.projects = JSON.parse(updateFields.projects);
+            } catch (e) {
+                console.error("Malformatted projects JSON string segment dropped.");
+            }
+        }
 
         const updatedSection = await Section.findByIdAndUpdate(
             targetSectionId,
-            { $set: req.body },
+            { $set: updateFields }, // 🌟 Dynamically applies matching properties
             { new: true, runValidators: true }
         );
 
@@ -133,7 +147,7 @@ export const deleteSection = async (req, res) => {
     try {
         const targetSectionId = req.params.id || req.params.sectionId;
 
-        // 1. Locate the target section element first to gather its data references
+        // 1. Locate the target section element
         const section = await Section.findById(targetSectionId);
         if (!section) {
             return res.status(404).json({ success: false, message: "Target section record does not exist." });

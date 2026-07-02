@@ -56,7 +56,20 @@ export const createCourse = async (req, res) => {
             discountPrice,
             requirements,
             learningOutcomes,
-            seo
+            seo,
+            // 🌟 NEW LANDING PAGE PROPERTIES EXTRACTED
+            heroHighlights,
+            careerRole,
+            durationMonths,
+            customDesc,
+            stats,
+            highlights,
+            features,
+            tools,
+            faqs,
+            learningOptionsPrice,
+            batchStartsInDays,
+            seatsLeft
         } = req.body;
 
         if (!title || !title.trim() || !slug || !description || !category || price === undefined) {
@@ -99,6 +112,12 @@ export const createCourse = async (req, res) => {
             }
         }
 
+        // Helper to safely parse incoming mixed FormData values if needed
+        const safeParse = (val) => {
+            if (!val) return undefined;
+            return typeof val === "string" ? JSON.parse(val) : val;
+        };
+
         let parsedSeo = {};
         if (seo) {
             try {
@@ -119,12 +138,26 @@ export const createCourse = async (req, res) => {
             language: language || "English",
             price: Number(price),
             discountPrice: discountPrice ? Number(discountPrice) : 0,
-            requirements: Array.isArray(requirements) ? requirements : [],
-            learningOutcomes: Array.isArray(learningOutcomes) ? learningOutcomes : [],
+            requirements: Array.isArray(requirements) ? requirements : safeParse(requirements) || [],
+            learningOutcomes: Array.isArray(learningOutcomes) ? learningOutcomes : safeParse(learningOutcomes) || [],
             thumbnail: uploadedThumbnailUrl, 
             instructor: req.userId, 
             status: "DRAFT",
-            seo: parsedSeo
+            seo: parsedSeo,
+            
+            // 🌟 NEW LANDING DATA MAPPED FOR PERSISTENCE
+            heroHighlights: safeParse(heroHighlights),
+            careerRole: careerRole ? careerRole.trim() : "",
+            durationMonths: durationMonths ? Number(durationMonths) : 0,
+            customDesc: customDesc ? customDesc.trim() : "",
+            stats: Array.isArray(stats) ? stats : safeParse(stats) || [],
+            highlights: Array.isArray(highlights) ? highlights : safeParse(highlights) || [],
+            features: Array.isArray(features) ? features : safeParse(features) || [],
+            tools: Array.isArray(tools) ? tools : safeParse(tools) || [],
+            faqs: Array.isArray(faqs) ? faqs : safeParse(faqs) || [],
+            learningOptionsPrice: safeParse(learningOptionsPrice),
+            batchStartsInDays: batchStartsInDays ? Number(batchStartsInDays) : undefined,
+            seatsLeft: seatsLeft ? Number(seatsLeft) : undefined
         });
 
         return res.status(201).json({ success: true, data: course });
@@ -200,13 +233,43 @@ export const updateCourse = async (req, res) => {
 
         const updateFields = { ...req.body };
 
-        if (updateFields.seo && typeof updateFields.seo === "string") {
-            try {
-                updateFields.seo = JSON.parse(updateFields.seo);
-            } catch (e) {
-                return res.status(400).json({ success: false, message: "Malformatted JSON string provided inside SEO parameter block." });
+        // Helper to safely parse stringified values coming from FormData
+        const safeParseAndFlatten = (fieldName) => {
+            if (updateFields[fieldName]) {
+                try {
+                    const parsed = typeof updateFields[fieldName] === "string" 
+                        ? JSON.parse(updateFields[fieldName]) 
+                        : updateFields[fieldName];
+                    
+                    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+                        for (const [key, value] of Object.entries(parsed)) {
+                            updateFields[`${fieldName}.${key}`] = value;
+                        }
+                        delete updateFields[fieldName];
+                    } else if (Array.isArray(parsed)) {
+                        updateFields[fieldName] = parsed; // Keep standard arrays intact
+                    }
+                } catch (e) {
+                    console.error(`Error parsing field ${fieldName}:`, e);
+                }
             }
-        }
+        };
+
+        // Deep-merge protection for complex nested object structures
+        safeParseAndFlatten("seo");
+        safeParseAndFlatten("heroHighlights");
+        safeParseAndFlatten("learningOptionsPrice");
+
+        // Parse remaining stringified arrays if sent via multi-part form data
+        ["requirements", "learningOutcomes", "stats", "highlights", "features", "tools", "faqs"].forEach(field => {
+            if (updateFields[field] && typeof updateFields[field] === "string") {
+                try {
+                    updateFields[field] = JSON.parse(updateFields[field]);
+                } catch (e) {
+                    // Fail silently or handle bad array JSON strings
+                }
+            }
+        });
 
         if (updateFields.slug) {
             updateFields.slug = updateFields.slug
@@ -243,13 +306,6 @@ export const updateCourse = async (req, res) => {
             }
         }
 
-        if (updateFields.seo && typeof updateFields.seo === "object") {
-            for (const [key, value] of Object.entries(updateFields.seo)) {
-                updateFields[`seo.${key}`] = value;
-            }
-            delete updateFields.seo; 
-        }
-
         const updatedCourse = await Course.findByIdAndUpdate(
             courseId,
             { $set: updateFields },
@@ -284,17 +340,14 @@ export const softDeleteCourse = async (req, res) => {
             return res.status(404).json({ success: false, message: "Target course record does not exist across registry fields." });
         }
 
-        // 📸 🛠️ ADDED: Cloudinary Thumbnail Media Purge Layer
         if (course.thumbnail) {
             const thumbnailPublicId = getPublicIdFromUrl(course.thumbnail);
             if (thumbnailPublicId) {
                 console.log(`Purging course thumbnail out of Cloudinary: ${thumbnailPublicId}`);
-                // Images drop instantly without standard raw type settings flags
                 await cloudinary.uploader.destroy(thumbnailPublicId);
             }
         }
 
-        // Collect intermediate system keys (Sections) to access deepest nodes
         const sections = await Section.find({
             $or: [
                 { courseId: courseId },
@@ -304,7 +357,6 @@ export const softDeleteCourse = async (req, res) => {
         
         const sectionIds = sections.map(sec => sec._id);
 
-        // Parallelized Deep Cascade Eradication Sweep Routine
         await Promise.all([
             Lecture.deleteMany({ sectionId: { $in: sectionIds } }),
             Quiz.deleteMany({ sectionId: { $in: sectionIds } }),
@@ -316,7 +368,6 @@ export const softDeleteCourse = async (req, res) => {
             })
         ]);
 
-        // Expunge the primary course root layout entry document
         await course.deleteOne();
 
         return res.status(200).json({ 
@@ -345,6 +396,7 @@ export const togglePublishStatus = async (req, res) => {
             return res.status(404).json({ success: false, message: "Target course record could not be extracted." });
         }
 
+        // Toggles status cleanly while leaving all new landing data completely intact
         course.status = course.status === "PUBLISHED" ? "DRAFT" : "PUBLISHED";
         await course.save();
 

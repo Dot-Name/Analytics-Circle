@@ -35,7 +35,7 @@ const recalculateCourseRating = async (courseId) => {
 export const upsertCourseReview = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const { rating, comment } = req.body;
+    const { rating, comment, isFeaturedTestimonial } = req.body;
     const userId = req.userId;
 
     if (!rating || !comment) {
@@ -47,19 +47,23 @@ export const upsertCourseReview = async (req, res) => {
       return res.status(400).json({ success: false, message: "Rating metric boundaries must range safely between 1 and 5." });
     }
 
-    // Atomic Upsert: Finds matching combo context and replaces or creates structural elements
+    // Prepare standard set payload parameters
+    const updatePayload = {
+      rating: numericalRating,
+      comment: comment.trim()
+    };
+
+    // 🌟 NEW: Set the feature flag if explicitly supplied in the incoming request payload
+    if (isFeaturedTestimonial !== undefined) {
+      updatePayload.isFeaturedTestimonial = isFeaturedTestimonial === "true" || isFeaturedTestimonial === true;
+    }
+
     const review = await Review.findOneAndUpdate(
       { courseId, studentId: userId },
-      {
-        $set: {
-          rating: numericalRating,
-          comment: comment.trim()
-        }
-      },
+      { $set: updatePayload },
       { new: true, upsert: true, runValidators: true }
     );
 
-    // Trigger calculation updates across global parent registry frameworks asynchronously
     await recalculateCourseRating(courseId);
 
     return res.status(200).json({
@@ -89,7 +93,7 @@ export const getCourseReviewsCatalog = async (req, res) => {
 
     const [reviews, totalCount] = await Promise.all([
       Review.find({ courseId })
-        .populate("studentId", "fullName profile.picture") // Extracted profile assets safely
+        .populate("studentId", "fullName profile.picture") 
         .sort({ createdAt: -1 })
         .skip(skipOffset)
         .limit(activeLimit)

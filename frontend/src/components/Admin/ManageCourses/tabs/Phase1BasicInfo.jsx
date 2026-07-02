@@ -24,12 +24,10 @@ export default function Phase1BasicInfo({
       setValue("category", courseData.category || "Data Analysis");
       setValue("price", courseData.price !== undefined ? courseData.price : 0);
       
-      // SEO Subfields Hydration Mapping Matrix
-      if (courseData.seo) {
-        setValue("seo.metaTitle", courseData.seo.metaTitle || "");
-        setValue("seo.metaDescription", courseData.seo.metaDescription || "");
-        setValue("seo.focusKeyword", courseData.seo.focusKeyword || "");
-      }
+      // 🔄 Dual-Channel Hydration Normalization (Safeguards against backend flat/nested changes)
+      setValue("seo.metaTitle", courseData.seoTitle || courseData.seo?.metaTitle || "");
+      setValue("seo.metaDescription", courseData.seoDescription || courseData.seo?.metaDescription || "");
+      setValue("seo.focusKeyword", courseData.seoKeyword || courseData.seo?.focusKeyword || "");
       
       if (courseData.description) {
         setDescriptionText(courseData.description);

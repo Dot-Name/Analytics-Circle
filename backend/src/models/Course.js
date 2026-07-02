@@ -25,7 +25,59 @@ const courseSchema = new mongoose.Schema(
     totalReviews: { type: Number, default: 0 },
     isFeatured: { type: Boolean, default: false },
     isDeleted: { type: Boolean, default: false },
-
+    heroHighlights: {
+    highlight1: { type: String, trim: true },
+    highlight2: { type: String, trim: true }
+    },
+    careerRole: { type: String, trim: true },
+    durationMonths: { type: Number, default: 0 },
+    customDesc: { type: String },
+    
+    stats: [
+      {
+        value: { type: String },
+        label: { type: String }
+      }
+    ],
+    
+    highlights: [
+      {
+        icon: { type: String },
+        title: { type: String },
+        desc: { type: String }
+      }
+    ],
+    
+    features: [
+      {
+        icon: { type: String },
+        title: { type: String },
+        desc: { type: String }
+      }
+    ],
+    
+    tools: [
+      {
+        name: { type: String },
+        logo: { type: String }
+      }
+    ],
+    
+    faqs: [
+      {
+        question: { type: String, required: true },
+        answer: { type: String, required: true }
+      }
+    ],
+    
+    learningOptionsPrice: {
+      classroom: { type: String },
+      liveOnline: { type: String },
+      selfPaced: { type: String }
+    },
+    
+    batchStartsInDays: { type: Number },
+    seatsLeft: { type: Number },
     // ==========================================
     // 🔍 THE EMBEDDED SEO & OPEN GRAPH LAYER
     // ==========================================
